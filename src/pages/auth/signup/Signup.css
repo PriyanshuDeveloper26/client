@@ -1,0 +1,38 @@
+.center-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 90vh;
+}
+
+.center-form form {
+    width: 100%;
+    max-width: 400px;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    border: 1px solid #ccc;
+    background-color: #fff;
+}
+
+.center-form Form label {
+    font-weight: bold;
+}
+
+.center-form Form .form-control {
+    margin-bottom: 20px;
+    padding: 10px;
+}
+
+.center-form Form .btn {
+    padding: 10px 0;
+    border: none;
+    color: #fff;
+    /*background-color: #1877f2;*/
+}
+
+.center-form Form .btn:hover {
+    background-color: #166fe5;
+}
