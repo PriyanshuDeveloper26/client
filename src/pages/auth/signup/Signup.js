@@ -22,6 +22,7 @@ const Signup = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
     try {
       const response = await fetch("http://localhost:5000/user/register", {
         method: "POST",
@@ -30,17 +31,13 @@ const Signup = () => {
         },
         body: JSON.stringify(formData),
       });
+      
       const result = await response.json();
+      
       console.log(result);
       navigate("/login");
     } catch (error) {
       console.error(error);
-    } finally {
-      setFormData({
-        email: "",
-        name: "",
-        password: "",
-      });
     }
   };
 
@@ -48,16 +45,6 @@ const Signup = () => {
     <div className="center-form">
       <Form onSubmit={handleSubmit}>
         <h1>Signup</h1>
-        <Form.Group controlId="formBasicEmail">
-          <Form.Label>Email address</Form.Label>
-          <Form.Control
-            type="email"
-            name="email"
-            placeholder="Enter email"
-            value={formData.email}
-            onChange={handleInputChange}
-          />
-        </Form.Group>
         <Form.Group controlId="formBasicName">
           <Form.Label>Name</Form.Label>
           <Form.Control
@@ -68,6 +55,18 @@ const Signup = () => {
             onChange={handleInputChange}
           />
         </Form.Group>
+        
+        <Form.Group controlId="formBasicEmail">
+          <Form.Label>Email address</Form.Label>
+          <Form.Control
+            type="email"
+            name="email"
+            placeholder="Enter email"
+            value={formData.email}
+            onChange={handleInputChange}
+          />
+        </Form.Group>
+        
         <Form.Group controlId="formBasicPassword">
           <Form.Label>Password</Form.Label>
           <Form.Control
@@ -78,6 +77,7 @@ const Signup = () => {
             onChange={handleInputChange}
           />
         </Form.Group>
+        
         <Button type="submit" variant="dark" className="w-100">
           Signup
         </Button>
