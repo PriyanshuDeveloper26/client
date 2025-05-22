@@ -13,7 +13,7 @@ function App() {
       <Route path="/dashboard" element={<Dashboard></Dashboard>} ></Route>
     </Routes>
     </>
-  );
+  ); 
 }
 
 export default App;
