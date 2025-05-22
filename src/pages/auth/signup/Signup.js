@@ -12,6 +12,8 @@ const Signup = () => {
     password: "",
   });
 
+  const [error, setError] = useState("");
+
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setFormData({
@@ -22,7 +24,38 @@ const Signup = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
+    // validation
+    if (!formData.name || !formData.email || !formData.password) {
+      setError("All fields are required");
+      return;
+    }
+    // if (!formData.name) {
+    //   setError("Name is required");
+    //   return;
+    // }
+    // if (!formData.email) {
+    //   setError("Email is required");
+    //   return;
+    // }
+    // if (!formData.password) {
+    //   setError("Password is required");
+    //   return;
+    // }
+    if (!formData.email.includes("@")) {
+      setError("Email must contain @");
+      return;
+    }
+    if (!/\S+@\S+\.\S+/.test(formData.email)) {
+      setError("Invalid email");
+      return;
+    }
+    if (formData.password.length < 6) {
+      setError("Password must be at least 6 characters long");
+      return;
+    }
+    setError("");
+
     try {
       const response = await fetch("http://localhost:5000/user/register", {
         method: "POST",
@@ -31,9 +64,9 @@ const Signup = () => {
         },
         body: JSON.stringify(formData),
       });
-      
+
       const result = await response.json();
-      
+
       console.log(result);
       navigate("/login");
     } catch (error) {
@@ -45,6 +78,7 @@ const Signup = () => {
     <div className="center-form">
       <Form onSubmit={handleSubmit}>
         <h1>Signup</h1>
+        {error && <p className="text-danger">{error}</p>}
         <Form.Group controlId="formBasicName">
           <Form.Label>Name</Form.Label>
           <Form.Control
@@ -55,7 +89,7 @@ const Signup = () => {
             onChange={handleInputChange}
           />
         </Form.Group>
-        
+
         <Form.Group controlId="formBasicEmail">
           <Form.Label>Email address</Form.Label>
           <Form.Control
@@ -66,7 +100,7 @@ const Signup = () => {
             onChange={handleInputChange}
           />
         </Form.Group>
-        
+
         <Form.Group controlId="formBasicPassword">
           <Form.Label>Password</Form.Label>
           <Form.Control
@@ -77,7 +111,7 @@ const Signup = () => {
             onChange={handleInputChange}
           />
         </Form.Group>
-        
+
         <Button type="submit" variant="dark" className="w-100">
           Signup
         </Button>

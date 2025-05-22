@@ -14,7 +14,7 @@ const Header = () => {
   return (
     <Navbar bg={token ? "primary" : "dark"} variant="dark">
       <Container>
-        <Navbar.Brand as={Link} to="">
+        <Navbar.Brand>
           {token ? "Excel Analytics Platform" : "Hey,there"}
         </Navbar.Brand>
         <Nav className="ml-auto">

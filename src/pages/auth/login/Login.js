@@ -1,9 +1,8 @@
-import React from 'react'
-import { Form, Button } from 'react-bootstrap'
-import "./Login.css"
-import { useNavigate } from 'react-router-dom'
-import { useState } from 'react'
-
+import React from "react";
+import { Form, Button } from "react-bootstrap";
+import "./Login.css";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -12,6 +11,7 @@ const Login = () => {
     email: "",
     password: "",
   });
+  const [error, setError] = useState("");
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -23,6 +23,34 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // validation
+    if (!formData.email || !formData.password) {
+      setError("All fields are required");
+      return;
+    }
+    if (!formData.email) {
+      setError("Email is required");
+      return;
+    }
+    // if (!formData.password) {
+    //   setError("Password is required");
+    //   return;
+    // }
+    // if (!formData.email.includes("@")) {
+    //   setError("Email must contain @");
+    //   return;
+    // }
+    if (!/\S+@\S+\.\S+/.test(formData.email)) {
+      setError("Invalid email");
+      return;
+    }
+    if (formData.password.length < 6) {
+      setError("Password must be at least 6 characters long");
+      return;
+    }
+    setError("");
+
     try {
       const response = await fetch("http://localhost:5000/auth/login", {
         method: "POST",
@@ -45,11 +73,11 @@ const Login = () => {
     }
   };
 
-
   return (
     <div className="center-form">
       <Form onSubmit={handleSubmit}>
         <h1>Login</h1>
+        {error && <p className="text-danger">{error}</p>}
         <Form.Group controlId="formBasicEmail">
           <Form.Label>Email address</Form.Label>
           <Form.Control
@@ -75,7 +103,7 @@ const Login = () => {
         </Button>
       </Form>
     </div>
-  )
-}
+  );
+};
 
-export default Login
+export default Login;
