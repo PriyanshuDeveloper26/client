@@ -23,7 +23,7 @@ const Header = () => {
               <Nav.Link as={Link} to="/dashboard" className="nav-link">
                 Dashboard
               </Nav.Link>
-              <Nav.Link as={Link} to="/logout" onClick={handleLogout}>
+              <Nav.Link as={Link} to="/login" onClick={handleLogout}>
                 Logout
               </Nav.Link>
             </>
