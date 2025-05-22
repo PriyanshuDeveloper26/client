@@ -12,6 +12,12 @@
     margin-right: 20px;
 }
 
+.navbar .nav-link:hover {
+    /* background-color: #166fe5; */
+    transform: scale(1.1);
+    transition: all 0.3s ease;
+}
+
 @media (max-width: 576px) {
     .navbar .nav-link {
         margin-right: 0px;

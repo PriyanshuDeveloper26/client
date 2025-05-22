@@ -1,11 +1,16 @@
-import React from 'react'
+import React from "react";
+import "./upload.css";
 
 const UploadExcel = () => {
-    return (
-        <div>
-            <input type="file" accept=".xls,.xlsx" onChange={(e) => {}} />  <button onClick={() => {}}>Upload</button>
-        </div>
-    )
-}
+  return (
+    <div className="file-upload">
+      <label htmlFor="file-input" className="upload-label">
+        <span>📁 Upload Excel</span>
+        <input type="file" id="file-input" accept=".xls,.xlsx" onChange={(e) => {}} />
+        <button onClick={() => {}}>Upload</button>
+      </label>
+    </div>
+  );
+};
 
-export default UploadExcel
+export default UploadExcel;
