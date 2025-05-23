@@ -33,8 +33,8 @@
     /*background-color: #1877f2;*/
 }
 
-.center-form Form .btn:hover {
-    background-color: #166fe5;
-    transform: scale(0.9, 0.9);
-    transition: all 0.3s ease;
+.center-form Form:hover {
+    transform: scale(1.1);
+    transition: all 0.8s ease;
+    box-shadow: 0 2px 4px 4px rgba(51, 50, 66, 0.5);
 }
