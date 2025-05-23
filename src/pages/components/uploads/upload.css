@@ -4,7 +4,19 @@
     align-items: center;
     height: 200px;
   }
-  
+
+  .file-upload button {
+    margin-top: 20px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    width: 100%;
+  }
+
+  .file-upload button:hover {
+    box-shadow: 0 2px 4px 4px rgba(51, 50, 66, 0.5);
+  }
+
   .upload-label {
     display: inline-block;
     padding: 15px 30px;
@@ -18,9 +30,6 @@
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   }
   
-  .upload-label:hover {
-    background-color: purple;
-  }
   
   .upload-label input[type="file"] {
     display: none;
