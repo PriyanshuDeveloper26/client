@@ -11,7 +11,9 @@ const Login = () => {
     email: "",
     password: "",
   });
-  const [error, setError] = useState("");
+
+  // for error message
+  // const [error, setError] = useState("");
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -26,11 +28,13 @@ const Login = () => {
 
     // validation
     if (!formData.email || !formData.password) {
-      setError("All fields are required");
+      alert("All fields are required");
+      // setError("All fields are required");
       return;
     }
     if (!formData.email) {
-      setError("Email is required");
+      alert("Email is required");
+      // setError("Email is required");
       return;
     }
     // if (!formData.password) {
@@ -42,14 +46,16 @@ const Login = () => {
     //   return;
     // }
     if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      setError("Invalid email");
+      alert("Invalid email");
+      // setError("Invalid email");
       return;
     }
     if (formData.password.length < 6) {
-      setError("Password must be at least 6 characters long");
+      alert("Password must be at least 6 characters long");
+      // setError("Password must be at least 6 characters long");
       return;
     }
-    setError("");
+    // setError("");
 
     try {
       const response = await fetch("http://localhost:5000/auth/login", {
@@ -77,7 +83,7 @@ const Login = () => {
     <div className="center-form">
       <Form onSubmit={handleSubmit}>
         <h1>Login</h1>
-        {error && <p className="text-danger">{error}</p>}
+        {/* {error && <p className="text-danger">{error}</p>} */}
         <Form.Group controlId="formBasicEmail">
           <Form.Label>Email address</Form.Label>
           <Form.Control

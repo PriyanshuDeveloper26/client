@@ -20,7 +20,7 @@
   .upload-label {
     display: inline-block;
     padding: 15px 30px;
-    background-color: #4f46e5; /* Indigo */
+    background-color: #000000; /* Indigo */
     color: white;
     font-size: 16px;
     font-weight: 600;
@@ -29,6 +29,11 @@
     transition: background-color 0.3s ease;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   }
+
+  .upload-label:hover {
+    box-shadow: 0 2px 4px 4px rgba(200, 200, 201, 0.5);
+  }
+  
   
   
   .upload-label input[type="file"] {

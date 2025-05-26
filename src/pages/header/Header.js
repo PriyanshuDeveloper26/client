@@ -12,7 +12,7 @@ const Header = () => {
     navigate("/login");
   };
   return (
-    <Navbar bg={token ? "primary" : "dark"} variant="dark">
+    <Navbar bg={token ? "transparent" : "transparent"} variant="dark">
       <Container>
         <Navbar.Brand>
           {token ? "Excel Analytics Platform" : "Hey,there"}

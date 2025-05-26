@@ -7,7 +7,6 @@ const UploadExcel = () => {
       <label htmlFor="file-input" className="upload-label">
         <span>📁 Upload Excel</span>
         <input type="file" id="file-input" accept=".xls,.xlsx" onChange={(e) => {}} />
-        <hr />
         <button onClick={() => {}}>Upload</button>
       </label>
     </div>
