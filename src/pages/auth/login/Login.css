@@ -34,6 +34,14 @@
   font-weight: bold;
 }
 
+/* .center-form Form .form-control:hover {
+    box-shadow: 0 2px 4px 4px darkcyan;
+} */
+
+.center-form Form .form-control:focus {
+    box-shadow: 0 2px 4px 4px darkcyan;
+}
+
 .center-form Form .form-control {
   margin-bottom: 20px;
   padding: 10px;
@@ -58,6 +66,23 @@
 
 .center-form Form .btn:hover {
   box-shadow: 0 2px 4px 4px #040330;
+}
+
+.login-actions {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.forgot-link {
+  font-size: 14px;
+  color: #eeeeee;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.forgot-link:hover {
+  color: #ffffff;
 }
 
 /* .center-form Form:hover {

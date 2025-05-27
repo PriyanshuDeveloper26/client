@@ -20,9 +20,9 @@ const Header = () => {
         <Nav className="ml-auto">
           {token ? (
             <>
-              <Nav.Link as={Link} to="/dashboard" className="nav-link">
+              {/* <Nav.Link as={Link} to="/dashboard" className="nav-link">
                 Dashboard
-              </Nav.Link>
+              </Nav.Link> */}
               <Nav.Link as={Link} to="/login" onClick={handleLogout}>
                 Logout
               </Nav.Link>

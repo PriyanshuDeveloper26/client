@@ -32,6 +32,10 @@
   padding: 10px;
 }
 
+.center-form Form .form-control:focus {
+  box-shadow: 0 2px 4px 4px darkcyan;
+}
+
 .center-form Form .btn {
   /* padding: 10px 0;
   border: none;

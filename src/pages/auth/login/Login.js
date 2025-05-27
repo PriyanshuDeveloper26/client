@@ -104,6 +104,10 @@ const Login = () => {
             onChange={handleInputChange}
           />
         </Form.Group>
+        <div className="login-actions">
+        <a href="forgot-password" className="forgot-link">Forgot Password?</a>
+        </div>
+        <br />
         <Button type="submit" variant="dark" className="w-100">
           Login
         </Button>
