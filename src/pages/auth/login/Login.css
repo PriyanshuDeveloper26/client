@@ -65,7 +65,9 @@
 }
 
 .center-form Form .btn:hover {
-  box-shadow: 0 2px 4px 4px #040330;
+  /* box-shadow: 0 2px 4px 4px #040330; */
+   background-color: #040330;
+  box-shadow: 0 2px 4px 4px rgba(255, 255, 255, 0.5);
 }
 
 .login-actions {

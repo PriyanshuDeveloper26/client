@@ -55,8 +55,10 @@
 
 .center-form Form .btn:hover {
   background-color: #040330;
+  box-shadow: 0 2px 4px 4px rgba(255, 255, 255, 0.5);
 }
 
 /* .center-form Form:hover {
   box-shadow: 0 2px 4px 4px darkcyan;
 } */
+ 

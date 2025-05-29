@@ -6,6 +6,8 @@ import { useNavigate } from "react-router-dom";
 const Signup = () => {
   const navigate = useNavigate();
 
+  const [isLoading, setIsLoading] = useState(false);
+
   const [formData, setFormData] = useState({
     email: "",
     name: "",
@@ -62,6 +64,7 @@ const Signup = () => {
     // setError("");
 
     try {
+      setIsLoading(true);
       const response = await fetch("http://localhost:5000/user/register", {
         method: "POST",
         headers: {
@@ -76,6 +79,8 @@ const Signup = () => {
       navigate("/login");
     } catch (error) {
       console.error(error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -117,8 +122,13 @@ const Signup = () => {
           />
         </Form.Group>
 
-        <Button type="submit" variant="dark" className="w-100">
-          Signup
+        <Button
+          type="submit"
+          variant="dark"
+          className="w-100"
+          disabled={isLoading}
+        >
+          {isLoading ? "Signing up..." : "Signup"}
         </Button>
       </Form>
     </div>

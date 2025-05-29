@@ -7,6 +7,8 @@ import { useState } from "react";
 const Login = () => {
   const navigate = useNavigate();
 
+  const [isLoading, setIsLoading] = useState(false);
+
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -58,6 +60,7 @@ const Login = () => {
     // setError("");
 
     try {
+      setIsLoading(true);
       const response = await fetch("http://localhost:5000/auth/login", {
         method: "POST",
         headers: {
@@ -72,6 +75,7 @@ const Login = () => {
     } catch (error) {
       console.error(error);
     } finally {
+      setIsLoading(false);
       setFormData({
         email: "",
         password: "",
@@ -108,8 +112,13 @@ const Login = () => {
         <a href="forgot-password" className="forgot-link">Forgot Password?</a>
         </div>
         <br />
-        <Button type="submit" variant="dark" className="w-100">
-          Login
+        <Button
+          type="submit"
+          variant="dark"
+          className="w-100"
+          disabled={isLoading}
+        >
+          {isLoading ? "Logging in..." : "Login"}
         </Button>
       </Form>
     </div>

@@ -1,5 +1,6 @@
 // import React, { useState } from 'react';
 import "./Forgot_password.css";
+import { motion } from "framer-motion";
 
 const ForgotPassword = () => {
 //   const [email, setEmail] = useState('');
@@ -36,9 +37,17 @@ const ForgotPassword = () => {
           placeholder="Enter your email"
           required
         />
-        <button type="submit">
+        {/* <button type="submit">
           Send Reset Link
-        </button>
+        </button> */}
+        <motion.button
+          initial={false}
+          animate={{ scale: 1 }}
+          whileTap={{ scale: 0.8 }}
+          onClick={() => {}}
+        >
+          Send Reset Link
+        </motion.button>
       </form>
       {/* {message && <p>{message}</p>} */}
     </div>

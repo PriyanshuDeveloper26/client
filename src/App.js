@@ -6,6 +6,7 @@ import Dashboard from "./pages/dashboard/Dashboard";
 import Footer from "./pages/components/footer/Footer";
 import ForgotPassword from "./pages/components/forgot-password/Forgot_password";
 import ResetPassword from "./pages/components/forgot-password/reset-password/Reset_password";
+import AdminDashboard from "./pages/admin-dashboard/AdminDashboard";
 function App() {
   return (
     <>
@@ -16,6 +17,7 @@ function App() {
         <Route path="/dashboard" element={<Dashboard></Dashboard>}></Route>
         <Route path="/forgot-password" element={<ForgotPassword></ForgotPassword>}></Route>
         <Route path="/reset-password" element={<ResetPassword></ResetPassword>}></Route>
+        <Route path="/admin-dashboard" element={<AdminDashboard></AdminDashboard>}></Route>
       </Routes>
       <Footer></Footer>
     </>
