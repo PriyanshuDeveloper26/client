@@ -1,5 +1,19 @@
 .navbar {
-    background-color: dark;
+    /* background-color: dark; */
+    /* width: 100%;
+  max-width: 400px;
+  padding: 20px; */
+  background: rgba(255, 255, 255, 0.1); /* semi-transparent white */
+  /* border-radius: 16px; */
+  padding: 20px;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  /* border: 1px solid rgba(255, 255, 255, 0.2); */
+  color: white;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
 }
 
 .navbar .navbar-brand {

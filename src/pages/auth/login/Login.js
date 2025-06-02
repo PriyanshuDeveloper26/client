@@ -71,7 +71,13 @@ const Login = () => {
       const result = await response.json();
       console.log(result);
       localStorage.setItem("token", result.token);
-      navigate("/dashboard");
+      if (formData.email === "zidiodev@gmail.com" && formData.password === "admin@123") {
+        navigate("/admin-dashboard");
+        localStorage.setItem("role", "admin");
+      } else {
+        navigate("/dashboard");
+        localStorage.setItem("role", "user");
+      }
     } catch (error) {
       console.error(error);
     } finally {
