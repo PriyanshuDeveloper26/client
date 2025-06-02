@@ -39,14 +39,6 @@ const Login = () => {
       // setError("Email is required");
       return;
     }
-    // if (!formData.password) {
-    //   setError("Password is required");
-    //   return;
-    // }
-    // if (!formData.email.includes("@")) {
-    //   setError("Email must contain @");
-    //   return;
-    // }
     if (!/\S+@\S+\.\S+/.test(formData.email)) {
       alert("Invalid email");
       // setError("Invalid email");
@@ -71,12 +63,16 @@ const Login = () => {
       const result = await response.json();
       console.log(result);
       localStorage.setItem("token", result.token);
-      if (formData.email === "zidiodev@gmail.com" && formData.password === "admin@123") {
+      if (
+        formData.email === "zidiodev@gmail.com" &&
+        formData.password === "admin@123"
+      ) {
         navigate("/admin-dashboard");
         localStorage.setItem("role", "admin");
       } else {
         navigate("/dashboard");
         localStorage.setItem("role", "user");
+        localStorage.setItem("name", result.name);
       }
     } catch (error) {
       console.error(error);
@@ -115,7 +111,9 @@ const Login = () => {
           />
         </Form.Group>
         <div className="login-actions">
-        <a href="forgot-password" className="forgot-link">Forgot Password?</a>
+          <a href="forgot-password" className="forgot-link">
+            Forgot Password?
+          </a>
         </div>
         <br />
         <Button
