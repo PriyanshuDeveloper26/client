@@ -72,7 +72,6 @@ const Login = () => {
       } else {
         navigate("/dashboard");
         localStorage.setItem("role", "user");
-        localStorage.setItem("name", result.name);
       }
     } catch (error) {
       console.error(error);

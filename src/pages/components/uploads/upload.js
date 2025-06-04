@@ -7,6 +7,7 @@ const UploadExcel = () => {
   const [responseMsg, setResponseMsg] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
+
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
     const allowedTypes = [
@@ -48,12 +49,16 @@ const UploadExcel = () => {
   return (
     <div className="file-upload">
       <label htmlFor="file-input" className="upload-label">
-        <span>📁 Upload File Here</span>
+        <span>
+          {file ? "📁 " + file.name : "📁 Upload File Here "}{" "}
+          {isLoading ? " uploading..." : ""}
+        </span>
         <input
           type="file"
           id="file-input"
           accept=".xls,.xlsx"
           onChange={handleFileChange}
+          required
         />
         {/* <button type="button" onClick={handleUpload}>
           Upload

@@ -2,7 +2,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 200px;
+  height: 50vh;
+  color: #fff;
 }
 
 .file-upload button {
@@ -35,10 +36,10 @@
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); */
   width: 100%;
   max-width: 400px;
-  padding: 20px;
+  padding: 35px;
   background: rgba(255, 255, 255, 0.1); /* semi-transparent white */
   border-radius: 16px;
-  padding: 20px;
+  /* padding: 20px; */
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
@@ -47,14 +48,36 @@
   text-align: center;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
+  margin: 30px;
+  font-size: 25px;
 }
 
-/* .upload-label:hover {
-    box-shadow: 0 2px 4px 4px rgba(200, 200, 201, 0.5);
-  } */
+.upload-label:hover {
+  box-shadow: 0 2px 4px 4px rgba(200, 200, 201, 0.5);
+  transform: scale(1.05);
+  transition: transform 0.3s ease;
+}
 
 .upload-label input[type="file"] {
   display: none;
 }
 
+
+
+/* responsive styles */
+@media (max-width: 768px) {
+    .upload-label {
+        font-size: 18px;
+    }
+    .file-upload {
+        margin: 20px;
+    }
+}
+
+@media (max-width: 576px) {
+    .upload-label {
+        font-size: 12px;
+    }
+}
 

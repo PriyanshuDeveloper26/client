@@ -3,7 +3,7 @@ import Header from "./pages/header/Header";
 import Login from "./pages/auth/login/Login";
 import Signup from "./pages/auth/signup/Signup";
 import Dashboard from "./pages/dashboard/Dashboard";
-import Footer from "./pages/components/footer/Footer";
+// import Footer from "./pages/components/footer/Footer";
 import ForgotPassword from "./pages/components/forgot-password/Forgot_password";
 import ResetPassword from "./pages/components/forgot-password/reset-password/Reset_password";
 import AdminDashboard from "./pages/admin-dashboard/AdminDashboard";
@@ -19,7 +19,7 @@ function App() {
         <Route path="/reset-password" element={<ResetPassword></ResetPassword>}></Route>
         <Route path="/admin-dashboard" element={<AdminDashboard></AdminDashboard>}></Route>
       </Routes>
-      <Footer></Footer>
+      {/* <Footer></Footer> */}
     </>
   );
 }
