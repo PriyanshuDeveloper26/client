@@ -1,5 +1,6 @@
 import React from "react";
 import "./Dashboard.css";
+import ExcelChart from "../components/charts/ExcelChart";
 import UploadExcel from "../components/uploads/upload";
 import { Carousel } from "react-bootstrap";
 import { ListGroup, ListGroupItem } from "react-bootstrap";
@@ -16,19 +17,30 @@ const Dashboard = () => {
           <Carousel.Caption>
             <p
               style={{
-                fontSize: "2rem",
+                fontSize: "20px",
                 fontWeight: "bold",
                 fontFamily: "cursive",
               }}
             >
-              Import new data for analysis
+              Import the data for analysis
             </p>
           </Carousel.Caption>
         </Carousel.Item>
         <Carousel.Item>
           <div className="dashboard">
-            <UploadExcel />
+            <ExcelChart />
           </div>
+          <Carousel.Caption>
+            <p
+              style={{
+                fontSize: "20px",
+                fontWeight: "bold",
+                fontFamily: "cursive",
+              }}
+            >
+              Click here to generate 2d and 3d charts
+            </p>
+          </Carousel.Caption>
         </Carousel.Item>
         <Carousel.Item>
           <div className="dashboard">
