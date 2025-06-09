@@ -7,6 +7,8 @@ import { useState } from "react";
 const Login = () => {
   const navigate = useNavigate();
 
+  const [isLoading, setIsLoading] = useState(false);
+
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -37,14 +39,6 @@ const Login = () => {
       // setError("Email is required");
       return;
     }
-    // if (!formData.password) {
-    //   setError("Password is required");
-    //   return;
-    // }
-    // if (!formData.email.includes("@")) {
-    //   setError("Email must contain @");
-    //   return;
-    // }
     if (!/\S+@\S+\.\S+/.test(formData.email)) {
       alert("Invalid email");
       // setError("Invalid email");
@@ -58,6 +52,7 @@ const Login = () => {
     // setError("");
 
     try {
+      setIsLoading(true);
       const response = await fetch("http://localhost:5000/auth/login", {
         method: "POST",
         headers: {
@@ -68,10 +63,20 @@ const Login = () => {
       const result = await response.json();
       console.log(result);
       localStorage.setItem("token", result.token);
-      navigate("/dashboard");
+      if (
+        formData.email === "zidiodev@gmail.com" &&
+        formData.password === "admin@123"
+      ) {
+        navigate("/admin-dashboard");
+        localStorage.setItem("role", "admin");
+      } else {
+        navigate("/dashboard");
+        localStorage.setItem("role", "user");
+      }
     } catch (error) {
       console.error(error);
     } finally {
+      setIsLoading(false);
       setFormData({
         email: "",
         password: "",
@@ -105,11 +110,18 @@ const Login = () => {
           />
         </Form.Group>
         <div className="login-actions">
-        <a href="forgot-password" className="forgot-link">Forgot Password?</a>
+          <a href="forgot-password" className="forgot-link">
+            Forgot Password?
+          </a>
         </div>
         <br />
-        <Button type="submit" variant="dark" className="w-100">
-          Login
+        <Button
+          type="submit"
+          variant="dark"
+          className="w-100"
+          disabled={isLoading}
+        >
+          {isLoading ? "Logging in..." : "Login"}
         </Button>
       </Form>
     </div>

@@ -8,6 +8,7 @@ body {
   background-image: url("./assets/images/excel_bg.jpg");
   background-size: cover;
   backdrop-filter: blur(2px);
+  /* overflow-x: hidden; */
 }
 
 code {

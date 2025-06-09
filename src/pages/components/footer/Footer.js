@@ -1,9 +1,9 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faTwitter,
   faInstagram,
   faLinkedin,
+  faGithub,
 } from "@fortawesome/free-brands-svg-icons";
 import "./Footer.css";
 
@@ -22,11 +22,11 @@ const Footer = () => {
         >
           <FontAwesomeIcon icon={faLinkedin} />
         </a>
-        <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">
-          <FontAwesomeIcon icon={faTwitter} />
+        <a href="https://github.com/PriyanshuDeveloper26" target="_blank" rel="noopener noreferrer">
+          <FontAwesomeIcon icon={faGithub} />
         </a>
         <a
-          href="https://instagram.com"
+          href="https://instagram.com/priyanshu_sathvara_?igsh=bG8xNjloYW94b2Nz"
           target="_blank"
           rel="noopener noreferrer"
         >

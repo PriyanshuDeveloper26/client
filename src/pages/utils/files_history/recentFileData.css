@@ -1,0 +1,56 @@
+.row-layout {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    /* border: 1px solid #ccc; */
+    position: relative;
+  }
+  
+  .recent-files {
+    flex: 1;
+    text-align: center;
+    font-weight: bold;
+    color: #fff;
+  }
+  
+  .upload-btn {
+    background-color: transparent;
+    color: #fff;
+    border: none;
+    /* border: 1px solid #fff; */
+    padding: 10px;
+    cursor: pointer;
+    /* border-radius: 8px; */
+    position: absolute;
+    right: 10px;
+  }
+
+  .upload-btn:hover {
+    font-weight: bold;
+    color: #fff;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  th, td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .delete-btn {
+    background-color: transparent;
+    color: blue;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+  }
+
+  .delete-btn:hover {
+    font-weight: bold;
+    color: blue;
+    text-decoration: underline;
+  }

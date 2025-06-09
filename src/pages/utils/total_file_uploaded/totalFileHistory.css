@@ -1,0 +1,44 @@
+.row-layout {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    /* border: 1px solid #ccc; */
+    position: relative;
+  }
+  
+  .total-files {
+    flex: 1;
+    text-align: center;
+    font-weight: bold;
+    color: #fff;
+    font-size: 20px;
+    font-family: 'times new roman';
+  }
+
+  .total-file-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: 'Segoe UI', sans-serif;
+    font-size: 15px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  }
+  
+  th, td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .total-file-delete-btn {
+    background-color: transparent;
+    color: #fff;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+  }
+
+  .total-file-delete-btn:hover {
+    font-weight: bold;
+    color: #fff;
+    text-decoration: underline;
+  }
