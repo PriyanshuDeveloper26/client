@@ -1,13 +1,26 @@
 import React, { useState } from "react";
 import "./Header.css";
 import { Navbar, Container, Nav, Button } from "react-bootstrap";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
+import { FaArrowLeft } from "react-icons/fa";
+import { motion } from "framer-motion";
 
 const Header = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const token = localStorage.getItem("token");
   const role = localStorage.getItem("role");
   const [expanded, setExpanded] = useState(false);
+
+  const isDashboard =
+    location.pathname === "/dashboard" ||
+    location.pathname === "/admin-dashboard" ||
+    location.pathname === "/login" ||
+    location.pathname === "/register" || location.pathname === "/";
+
+  const handleBack = () => {
+    navigate(-1);
+  };
 
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -16,6 +29,7 @@ const Header = () => {
   };
 
   const closeNavbar = () => setExpanded(false);
+
   return (
     <Navbar
       bg={token ? "transparent" : "transparent"}
@@ -25,7 +39,19 @@ const Header = () => {
       onToggle={setExpanded}
       className="responsive-navbar"
     >
+
       <Container>
+      {!isDashboard && (
+        <motion.button className="back-button" onClick={handleBack}
+        initial={false}
+        animate={{ scale: 1 }}
+        whileTap={{ scale: 0.8 }}
+        whileHover={{ scale: 1.1 }}
+        transition={{ type: "spring", stiffness: 260, damping: 20 }}
+        >
+          <FaArrowLeft style={{ marginRight: '6px' }} />
+        </motion.button>
+      )}
         <Navbar.Brand className="brand-logo">
           {token && role === "admin"
             ? "Admin Dashboard"
@@ -82,6 +108,7 @@ const Header = () => {
         </Navbar.Collapse>
       </Container>
     </Navbar>
+    
   );
 };
 

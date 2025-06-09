@@ -4,9 +4,9 @@
     align-items: center;
     height: 50vh;
     color: #fff;
-  }
-  
-  .excel-chart button {
+}
+
+.excel-chart button {
     margin-top: 20px;
     justify-content: center;
     align-items: center;
@@ -15,15 +15,15 @@
     border: none;
     border-radius: 8px;
     background-color: aqua;
-  }
-  
-  .excel-chart button:hover {
+}
+
+.excel-chart button:hover {
     box-shadow: 0 2px 4px 4px rgba(255, 255, 255, 0.5);
     background-color: #040330;
     color: white;
-  }
-  
-  .excel-chart .chart-label {
+}
+
+.excel-chart .chart-label {
     /* display: inline-block;
       padding: 15px 30px;
       background-color: #000000; Indigo */
@@ -51,34 +51,30 @@
     cursor: pointer;
     margin: 30px;
     font-size: 20px;
-  }
-  
-  /* .excel-chart .chart-label:hover {
-    box-shadow: 0 2px 4px 4px rgba(200, 200, 201, 0.5);
+}
+
+.excel-chart .chart-label:hover {
+    box-shadow: 8px 8px 8px rgba(10, 10, 10, 0.5);
     transform: scale(1.05);
     transition: transform 0.3s ease;
-  } */
-  
-  .excel-chart .chart-label input[type="file"] {
+}
+
+.excel-chart .chart-label input[type="file"] {
     display: none;
-  }
-  
-  
-  
-  /* responsive styles */
-  @media (max-width: 768px) {
-      .excel-chart .chart-label {
-          font-size: 18px;
-      }
-      .excel-chart {
-          margin: 20px;
-      }
-  }
-  
-  @media (max-width: 576px) {
-      .excel-chart .chart-label {
-          font-size: 12px;
-      }
-  }
-  
-  
+}
+
+/* responsive styles */
+@media (max-width: 768px) {
+    .excel-chart .chart-label {
+        font-size: 18px;
+    }
+    .excel-chart {
+        margin: 20px;
+    }
+}
+
+@media (max-width: 576px) {
+    .excel-chart .chart-label {
+        font-size: 12px;
+    }
+}

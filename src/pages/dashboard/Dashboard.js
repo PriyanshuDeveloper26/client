@@ -1,61 +1,93 @@
 import React from "react";
 import "./Dashboard.css";
-import ExcelChart from "../components/charts/ExcelChart";
-import UploadExcel from "../components/uploads/upload";
-import { Carousel } from "react-bootstrap";
-import { ListGroup, ListGroupItem } from "react-bootstrap";
 import Footer from "../components/footer/Footer";
-
+import RecentFileData from "../utils/files_history/recentFileData";
+import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 const Dashboard = () => {
+    const navigate = useNavigate();
   return (
     <div>
-      <Carousel style={{ width: "100vw", height: "100vh" }}>
-        <Carousel.Item>
-          <div className="dashboard">
-            <UploadExcel />
-          </div>
-          <Carousel.Caption>
-            <p
-              style={{
-                fontSize: "20px",
-                fontWeight: "bold",
-                fontFamily: "cursive",
-              }}
-            >
-              Import the data for analysis
-            </p>
-          </Carousel.Caption>
-        </Carousel.Item>
-        <Carousel.Item>
-          <div className="dashboard">
-            <ExcelChart />
-          </div>
-          <Carousel.Caption>
-            <p
-              style={{
-                fontSize: "20px",
-                fontWeight: "bold",
-                fontFamily: "cursive",
-              }}
-            >
-              Click here to generate 2d and 3d charts
-            </p>
-          </Carousel.Caption>
-        </Carousel.Item>
-        <Carousel.Item>
-          <div className="dashboard">
-            <UploadExcel />
-          </div>
-        </Carousel.Item>
-      </Carousel>
+      <div className="dashboard-row">
+        <div className="dashboard-item">
+          <motion.div className="dashboard-card"
+          initial={false}
+          animate={{ scale: 1 }}
+          whileTap={{ scale: 0.8 }}
+          onClick={ () => navigate("/uploads")}
+          >
+            <label htmlFor="dashboard-input" className="dashboard-label">
+              <span style={{ fontSize: "20px", fontWeight: "bold", fontFamily: 'times new roman' }}>
+                  Upload File
+              </span>
+            </label>
+          </motion.div>
+          <p
+            style={{
+              fontSize: "18px",
+              fontWeight: "bold",
+              fontFamily: "cursive",
+              marginTop: "10px",
+              color: "white"
+            }}
+          >
+            Import the data for analysis
+          </p>
+        </div>
+        <div className="dashboard-item">
+          <motion.div className="dashboard-card"
+          initial={false}
+          animate={{ scale: 1 }}
+          whileTap={{ scale: 0.8 }}
+          onClick={ () => navigate("/charts")}
+          >
+            <label htmlFor="dashboard-input" className="dashboard-label">
+              <span style={{ fontSize: "20px", fontWeight: "bold", fontFamily: 'times new roman' }}>
+                  Charts Generated
+              </span>
+            </label>
+          </motion.div>
+          <p
+            style={{
+              fontSize: "18px",
+              fontWeight: "bold",
+              fontFamily: "cursive",
+              marginTop: "10px",
+              color: "white"
+            }}
+          >
+            Click here to generate 2d and 3d charts
+          </p>
+        </div>
+        <div className="dashboard-item">
+          <motion.div className="dashboard-card"
+          initial={false}
+          animate={{ scale: 1 }}
+          whileTap={{ scale: 0.8 }}
+          onClick={ () => navigate("/uploads/total-files")}
+          >
+            <label htmlFor="dashboard-input" className="dashboard-label">
+              <span style={{ fontSize: "20px", fontWeight: "bold", fontFamily: 'times new roman' }}>
+                  View total files
+              </span>
+            </label>
+          </motion.div>
+          <p
+            style={{
+              fontSize: "18px",
+              fontWeight: "bold",
+              fontFamily: "cursive",
+              marginTop: "10px",
+              color: "white"
+            }}
+          >
+            Click here to view total files uploaded
+          </p>
+        </div>
+      </div>
       <br />
       <br />
-      <ListGroup variant="flush" className="history" style={{ width: "100vw" }}>
-        <ListGroupItem className="history-item" style={{ textAlign: "center" }}>Item 1</ListGroupItem>
-        <ListGroupItem className="history-item" style={{ textAlign: "center" }}>Item 2</ListGroupItem>
-        <ListGroupItem className="history-item" style={{ textAlign: "center" }}>Item 3</ListGroupItem>
-      </ListGroup>
-      <br />
+      <RecentFileData />
       <Footer />
     </div>
   );
