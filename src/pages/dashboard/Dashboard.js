@@ -8,6 +8,7 @@ const Dashboard = () => {
     const navigate = useNavigate();
   return (
     <div>
+      <h1>Welcome back,{localStorage.getItem("name")}</h1>
       <div className="dashboard-row">
         <div className="dashboard-item">
           <motion.div className="dashboard-card"

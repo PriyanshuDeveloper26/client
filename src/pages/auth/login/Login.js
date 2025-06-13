@@ -10,7 +10,7 @@ const Login = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const [formData, setFormData] = useState({
-    email: "",
+    name: "",
     password: "",
   });
 
@@ -29,19 +29,14 @@ const Login = () => {
     e.preventDefault();
 
     // validation
-    if (!formData.email || !formData.password) {
+    if (!formData.name || !formData.password) {
       alert("All fields are required");
       // setError("All fields are required");
       return;
     }
-    if (!formData.email) {
-      alert("Email is required");
+    if (!formData.name) {
+      alert("Name is required");
       // setError("Email is required");
-      return;
-    }
-    if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      alert("Invalid email");
-      // setError("Invalid email");
       return;
     }
     if (formData.password.length < 6) {
@@ -62,23 +57,25 @@ const Login = () => {
       });
       const result = await response.json();
       console.log(result);
-      localStorage.setItem("token", result.token);
-      if (
-        formData.email === "zidiodev@gmail.com" &&
-        formData.password === "admin@123"
-      ) {
+      if (formData.name === "admin" && formData.password === "admin@123") {
         navigate("/admin-dashboard");
+        localStorage.setItem("token", result.token);
+        localStorage.setItem("email", result.email);
         localStorage.setItem("role", "admin");
+        localStorage.setItem("name", formData.name);
       } else {
         navigate("/dashboard");
+        localStorage.setItem("token", result.token);
+        localStorage.setItem("email", result.email);
         localStorage.setItem("role", "user");
+        localStorage.setItem("name", formData.name);
       }
     } catch (error) {
       console.error(error);
     } finally {
       setIsLoading(false);
       setFormData({
-        email: "",
+        name: "",
         password: "",
       });
     }
@@ -90,12 +87,12 @@ const Login = () => {
         <h1>Login</h1>
         {/* {error && <p className="text-danger">{error}</p>} */}
         <Form.Group controlId="formBasicEmail">
-          <Form.Label>Email address</Form.Label>
+          <Form.Label>Name</Form.Label>
           <Form.Control
-            type="email"
-            name="email"
-            placeholder="Enter email"
-            value={formData.email}
+            type="text"
+            name="name"
+            placeholder="Enter name"
+            value={formData.name}
             onChange={handleInputChange}
           />
         </Form.Group>
