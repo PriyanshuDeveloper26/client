@@ -35,7 +35,8 @@ const RecentFileData = () => {
       </div>
       <Table striped bordered hover>
         <thead>
-          <tr>
+          {files.length > 0 ? (
+            <tr>
             <th>Sr No.</th>
             <th>File Name</th>
             <th>File Type</th>
@@ -43,6 +44,11 @@ const RecentFileData = () => {
             <th>File Date</th>
             <th>File Action</th>
           </tr>
+          ) : (
+            <tr>
+              <td colSpan="6" className="text-center">No files found</td>
+            </tr>
+          )}
         </thead>
         <tbody>
           {files.map((file, index) => (
