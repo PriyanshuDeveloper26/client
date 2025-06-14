@@ -60,13 +60,11 @@ const Login = () => {
       if (formData.name === "admin" && formData.password === "admin@123") {
         navigate("/admin-dashboard");
         localStorage.setItem("token", result.token);
-        localStorage.setItem("email", result.email);
         localStorage.setItem("role", "admin");
         localStorage.setItem("name", formData.name);
       } else {
         navigate("/dashboard");
         localStorage.setItem("token", result.token);
-        localStorage.setItem("email", result.email);
         localStorage.setItem("role", "user");
         localStorage.setItem("name", formData.name);
       }

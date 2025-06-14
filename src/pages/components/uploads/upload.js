@@ -7,6 +7,7 @@ const UploadExcel = () => {
   const navigate = useNavigate();
   const [file, setFile] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  
 
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
@@ -80,3 +81,4 @@ const UploadExcel = () => {
   );
 };
 export default UploadExcel;
+

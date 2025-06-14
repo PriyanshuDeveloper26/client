@@ -22,6 +22,7 @@ const Header = () => {
     navigate(-1);
   };
 
+
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("role");
@@ -43,20 +44,22 @@ const Header = () => {
 
       <Container>
       {!isDashboard && (
-        <motion.button className="back-button" onClick={handleBack}
-        initial={false}
-        animate={{ scale: 1 }}
-        whileTap={{ scale: 0.8 }}
-        whileHover={{ scale: 1.1 }}
-        transition={{ type: "spring", stiffness: 260, damping: 20 }}
+        <motion.button
+          className="back-button"
+          onClick={handleBack}
+          initial={false}
+          animate={{ scale: 1 }}
+          whileTap={{ scale: 0.8 }}
+          whileHover={{ scale: 1.1 }}
+          transition={{ type: "spring", stiffness: 260, damping: 20 }}
         >
-          <FaArrowLeft style={{ marginRight: '6px' }} />
+          <FaArrowLeft style={{ marginRight: "6px" }} />
         </motion.button>
       )}
         <Navbar.Brand className="brand-logo">
           {token && role === "admin"
             ? "Admin Dashboard"
-            : "Excel Analytics Platform"}
+            : ( "Excel Analytics Platform")}
         </Navbar.Brand>
         <Navbar.Toggle
           aria-controls="responsive-navbar-nav"
@@ -66,7 +69,15 @@ const Header = () => {
           <Nav className="ms-auto">
             {token ? (
               <>
-                <Nav.Link
+              <Nav.Link
+                  as={Link}
+                  to={"/uploads"}
+                  className="nav-link"
+                  onClick={closeNavbar}
+                >
+                  {location.pathname !== "/uploads" ? "Upload" : ""}
+                </Nav.Link>
+              <Nav.Link
                   as={Link}
                   to={role === "admin" ? "/admin-dashboard" : "/dashboard"}
                   className="nav-link"
@@ -81,9 +92,10 @@ const Header = () => {
                     handleLogout();
                     closeNavbar();
                   }}
-                >
+            
+        >
                   Logout
-                </Nav.Link>
+               </Nav.Link>
               </>
             ) : (
               <>
@@ -109,7 +121,6 @@ const Header = () => {
         </Navbar.Collapse>
       </Container>
     </Navbar>
-    
   );
 };
 
