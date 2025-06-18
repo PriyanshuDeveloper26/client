@@ -1,9 +1,33 @@
+/* .signup-row-container {
+  display: grid;
+  grid-template-columns: 2.2fr 2fr;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+}
+
+.signup-image-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: transparent;
+  padding: 20px;
+}
+
+.signup-side-image {
+  max-width: 80%;
+  height: auto;
+  border-radius: 12px;
+} */
+
 .center-form {
+  margin-top: 30px;
+  margin-bottom: 30px;
   display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    height: 90vh;
+    height: 80vh;
 }
 
 .center-form form {
@@ -17,7 +41,7 @@
   -webkit-backdrop-filter: blur(6px);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
   border: 1px solid rgba(255, 255, 255, 0.2);
-  color: white;
+  color: black;
   text-align: center;
   justify-content: center;
   align-items: center;
@@ -54,8 +78,10 @@
 }
 
 .center-form Form .btn:hover {
-  background-color: #040330;
-  box-shadow: 0 2px 4px 4px rgba(255, 255, 255, 0.5);
+  color: white !important;
+  background: rgba(0, 0, 0, 0.8) !important;
+  box-shadow: 0 2px 4px rgba(0, 139, 139, 0.9) !important;
+  transform: translateY(-2px) !important;
 }
 
 /* .center-form Form:hover {

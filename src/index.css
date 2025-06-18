@@ -5,10 +5,11 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-image: url("./assets/images/excel_bg.jpg");
+  /* background-image: url("D:/excel_analytics_platform_zidio/Frontend/src/assets/images/gray-white-pixelated.jpg");
   background-size: cover;
-  backdrop-filter: blur(2px);
+  backdrop-filter: blur(5px); */
   /* overflow-x: hidden; */
+  background-color: rgba(0, 0, 0, 0.3) !important;
 }
 
 code {

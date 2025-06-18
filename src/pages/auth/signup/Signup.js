@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import "./Signup.css";
 import { useNavigate } from "react-router-dom";
+// import Signuplogo from "D:/excel_analytics_platform_zidio/Frontend/src/assets/images/sign_up_page.jpg";
+import Header from "../../header/Header";
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -85,53 +87,61 @@ const Signup = () => {
   };
 
   return (
-    <div className="center-form">
-      <Form onSubmit={handleSubmit}>
-        <h1>Signup</h1>
-        {/* {error && <p className="text-danger">{error}</p>} */}
-        <Form.Group controlId="formBasicName">
-          <Form.Label>Name</Form.Label>
-          <Form.Control
-            type="text"
-            name="name"
-            placeholder="Enter name"
-            value={formData.name}
-            onChange={handleInputChange}
-          />
-        </Form.Group>
+    <>
+    <Header />
+    {/* <div className="signup-row-container"> */}
+      {/* <div className="signup-image-section">
+        <img src={Signuplogo} alt="Signup" className="signup-side-image" />
+      </div> */}
+      <div className="center-form">
+        <Form onSubmit={handleSubmit}>
+          <h1>Signup</h1>
+          {/* {error && <p className="text-danger">{error}</p>} */}
+          <Form.Group controlId="formBasicName">
+            <Form.Label style={{color: "black"}}>Name</Form.Label>
+            <Form.Control
+              type="text"
+              name="name"
+              placeholder="Enter name"
+              value={formData.name}
+              onChange={handleInputChange}
+            />
+          </Form.Group>
 
-        <Form.Group controlId="formBasicEmail">
-          <Form.Label>Email address</Form.Label>
-          <Form.Control
-            type="email"
-            name="email"
-            placeholder="Enter email"
-            value={formData.email}
-            onChange={handleInputChange}
-          />
-        </Form.Group>
+          <Form.Group controlId="formBasicEmail">
+            <Form.Label style={{color: "black"}}>Email address</Form.Label>
+            <Form.Control
+              type="email"
+              name="email"
+              placeholder="Enter email"
+              value={formData.email}
+              onChange={handleInputChange}
+            />
+          </Form.Group>
 
-        <Form.Group controlId="formBasicPassword">
-          <Form.Label>Password</Form.Label>
-          <Form.Control
-            type="password"
-            name="password"
-            placeholder="Password"
-            value={formData.password}
-            onChange={handleInputChange}
-          />
-        </Form.Group>
+          <Form.Group controlId="formBasicPassword">
+            <Form.Label style={{color: "black"}}>Password</Form.Label>
+            <Form.Control
+              type="password"
+              name="password"
+              placeholder="Password"
+              value={formData.password}
+              onChange={handleInputChange}
+            />
+          </Form.Group>
 
-        <Button
-          type="submit"
-          variant="dark"
-          className="w-100"
-          disabled={isLoading}
-        >
-          {isLoading ? "Signing up..." : "Signup"}
-        </Button>
-      </Form>
-    </div>
+          <Button
+            type="submit"
+            variant="dark"
+            className="w-100"
+            disabled={isLoading}
+          >
+            {isLoading ? "Signing up..." : "Signup"}
+          </Button>
+        </Form>
+      </div>
+    {/* </div> */}
+    </>
   );
 };
 

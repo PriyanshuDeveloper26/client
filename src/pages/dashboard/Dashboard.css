@@ -1,3 +1,8 @@
+/* .flex {
+    margin-left: 260px;
+    padding: 20px;
+} */
+
 .dashboard-row {
     display: flex;
     flex-direction: row;
@@ -20,7 +25,7 @@ h1 {
     margin-top: 40px;
     text-align: center;
     padding: 5px;
-    color: white;
+    color: black;
     font-size: 1rem;
     font-weight: bold;
     font-family: cursive;
@@ -31,7 +36,7 @@ h1 {
     justify-content: center;
     align-items: center;
     height: 50vh;
-    color: #fff;
+    color: black;
 }
 .dashboard-card .dashboard-label {
     /* display: inline-block;
@@ -47,14 +52,14 @@ h1 {
     width: 100%;
     max-width: 400px;
     padding: 30px;
-    background: rgba(255, 255, 255, 0.1); /* semi-transparent white */
+    background: rgba(0, 0, 0, 0.1); /* semi-transparent white */
     border-radius: 16px;
     /* padding: 20px; */
     backdrop-filter: blur(6px);
     -webkit-backdrop-filter: blur(6px);
     box-shadow: 8px 8px 8px rgba(0, 0, 0, 0.3);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    color: white;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    color: black;
     text-align: center;
     justify-content: center;
     align-items: center;
@@ -64,9 +69,9 @@ h1 {
 }
 
 .dashboard-card .dashboard-label:hover {
-    box-shadow: 0 2px 4px 4px rgba(255, 255, 255, 0.5);
-    transform: scale(1.05);
-    transition: transform 0.3s ease;
+    background: rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 4px rgba(0, 139, 139, 0.5);
+    transform: translateY(-2px);
 }
 
 .dashboard-card .dashboard-label input[type="file"] {

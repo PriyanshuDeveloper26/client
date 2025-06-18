@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import "./recentFileData.css";
 import { useNavigate } from "react-router-dom";
-import { Table } from "react-bootstrap";
+import { Table } from "@mui/material";
+import { TableBody, TableCell, TableHead, TableRow } from "@mui/material";
+
 const RecentFileData = () => {
   const [files, setFiles] = useState([]);
 
@@ -33,7 +35,7 @@ const RecentFileData = () => {
           + Upload
         </button>
       </div>
-      <Table striped bordered hover>
+      {/* <Table striped bordered hover>
         <thead>
           {files.length > 0 ? (
             <tr>
@@ -70,6 +72,53 @@ const RecentFileData = () => {
             </tr>
           ))}
         </tbody>
+      </Table> */}
+      
+      <Table sx={{ minWidth: 650 }} aria-label="simple table">
+        <TableHead>
+          <TableRow>
+            <TableCell>Sr No.</TableCell>
+            <TableCell align="right">File Name</TableCell>
+            <TableCell align="right">File Type</TableCell>
+            <TableCell align="right">File Size</TableCell>
+            <TableCell align="right">File Date</TableCell>
+            <TableCell align="right">File Action</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {files.map((file, index) => (
+            <TableRow
+              key={file._id}
+              sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+            >
+              <TableCell component="th" scope="row">
+                {index + 1}
+              </TableCell>
+              <TableCell align="right">{file.fileName}</TableCell>
+              <TableCell align="right">
+                {file.fileType.includes("spreadsheetml.sheet")
+                  ? "xlsx"
+                  : file.fileType.includes("ms-excel")
+                  ? "Xls"
+                  : "other"}
+              </TableCell>
+              <TableCell align="right">
+                {(file.size / 1024).toFixed(2)} MB
+              </TableCell>
+              <TableCell align="right">
+                {new Date(file.uploadDate).toLocaleString()}
+              </TableCell>
+              <TableCell align="right">
+                <button
+                  className="delete-btn"
+                  onClick={() => handleDelete(file._id)}
+                >
+                  Delete
+                </button>
+              </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
       </Table>
     </div>
   );

@@ -1,5 +1,6 @@
 import React from "react";
 import "./Dashboard.css";
+// import Sidebar from "../components/sidebar/sidebar";
 import Footer from "../components/footer/Footer";
 import RecentFileData from "../utils/files_history/recentFileData";
 import { motion } from "framer-motion";
@@ -7,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 const Dashboard = () => {
     const navigate = useNavigate();
   return (
-    <div>
+    <div className="flex" style={{ marginLeft: "260px", marginRight: "10px", marginTop: "10px" }}>
       <h1>Welcome back,{localStorage.getItem("name")}</h1>
       <div className="dashboard-row">
         <div className="dashboard-item">
@@ -29,7 +30,7 @@ const Dashboard = () => {
               fontWeight: "bold",
               fontFamily: "cursive",
               marginTop: "10px",
-              color: "white"
+              color: "black"
             }}
           >
             Import the data for analysis
@@ -54,7 +55,7 @@ const Dashboard = () => {
               fontWeight: "bold",
               fontFamily: "cursive",
               marginTop: "10px",
-              color: "white"
+              color: "black"
             }}
           >
             Click here to generate 2d and 3d charts
@@ -79,7 +80,7 @@ const Dashboard = () => {
               fontWeight: "bold",
               fontFamily: "cursive",
               marginTop: "10px",
-              color: "white"
+              color: "black"
             }}
           >
             Click here to view total files uploaded

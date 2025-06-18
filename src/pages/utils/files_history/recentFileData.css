@@ -10,12 +10,12 @@
     flex: 1;
     text-align: center;
     font-weight: bold;
-    color: #fff;
+    color: black;
   }
   
   .upload-btn {
     background-color: transparent;
-    color: #fff;
+    color: black;
     border: none;
     /* border: 1px solid #fff; */
     padding: 10px;
@@ -27,19 +27,22 @@
 
   .upload-btn:hover {
     font-weight: bold;
-    color: #fff;
-  }
-
-  table {
-    width: 100%;
-    border-collapse: collapse;
+    color: black;
   }
   
-  th, td {
+
+  /* table {
+    width: 100%;
+    border-collapse: collapse;
+  } */
+
+  
+  
+  /* th, td {
     padding: 10px;
     text-align: left;
     border-bottom: 1px solid #ddd;
-  }
+  } */
   
   .delete-btn {
     background-color: transparent;
@@ -54,3 +57,4 @@
     color: blue;
     text-decoration: underline;
   }
+

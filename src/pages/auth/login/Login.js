@@ -3,6 +3,8 @@ import { Form, Button } from "react-bootstrap";
 import "./Login.css";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+// import logo from "D:/excel_analytics_platform_zidio/Frontend/src/assets/images/login_page.jpg";
+import Header from "../../header/Header";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -80,46 +82,58 @@ const Login = () => {
   };
 
   return (
-    <div className="center-form">
-      <Form onSubmit={handleSubmit}>
-        <h1>Login</h1>
-        {/* {error && <p className="text-danger">{error}</p>} */}
-        <Form.Group controlId="formBasicEmail">
-          <Form.Label>Name</Form.Label>
-          <Form.Control
-            type="text"
-            name="name"
-            placeholder="Enter name"
-            value={formData.name}
-            onChange={handleInputChange}
-          />
-        </Form.Group>
-        <Form.Group controlId="formBasicPassword">
-          <Form.Label>Password</Form.Label>
-          <Form.Control
-            type="password"
-            name="password"
-            placeholder="Password"
-            value={formData.password}
-            onChange={handleInputChange}
-          />
-        </Form.Group>
-        <div className="login-actions">
-          <a href="forgot-password" className="forgot-link">
-            Forgot Password?
-          </a>
-        </div>
-        <br />
-        <Button
-          type="submit"
-          variant="dark"
-          className="w-100"
-          disabled={isLoading}
-        >
-          {isLoading ? "Logging in..." : "Login"}
-        </Button>
-      </Form>
-    </div>
+    <>
+    <Header />
+    {/* <div className="login-row-container"> */}
+
+      {/* login image */}
+      {/* <div className="login-image-section">
+        <img src={logo} alt="Logo" className="login-side-image" />
+      </div> */}
+
+      {/* login form */}
+      <div className="center-form">
+        <Form onSubmit={handleSubmit}>
+          <h1>Login</h1>
+          {/* {error && <p className="text-danger">{error}</p>} */}
+          <Form.Group controlId="formBasicEmail">
+            <Form.Label style={{color: "black"}}>Name</Form.Label>
+            <Form.Control
+              type="text"
+              name="name"
+              placeholder="Enter name"
+              value={formData.name}
+              onChange={handleInputChange}
+            />
+          </Form.Group>
+          <Form.Group controlId="formBasicPassword">
+            <Form.Label style={{color: "black"}}>Password</Form.Label>
+            <Form.Control
+              type="password"
+              name="password"
+              placeholder="Password"
+              value={formData.password}
+              onChange={handleInputChange}
+            />
+          </Form.Group>
+          <div className="login-actions">
+            <a href="forgot-password" className="forgot-link">
+              Forgot Password?
+            </a>
+          </div>
+          <br />
+          <Button
+            type="submit"
+            variant="dark"
+            className="w-100"
+            disabled={isLoading}
+          >
+            {isLoading ? "Logging in..." : "Login"}
+          </Button>
+        </Form>
+      </div>
+    {/* </div> */}
+    </>
   );
 };
 
