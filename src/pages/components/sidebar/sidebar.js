@@ -71,7 +71,7 @@ const Sidebar = () => {
               User Profile
             </Link>
           </li>
-          <li>
+          <li className="logout">
             <Link to="/login">
               <FontAwesomeIcon
                 icon={faSignOutAlt}

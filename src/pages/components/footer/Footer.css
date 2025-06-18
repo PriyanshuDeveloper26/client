@@ -1,4 +1,7 @@
-.footer {
+.footer-row-layout {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   background-color: transparent;
   color: black;
   text-align: center;
@@ -6,16 +9,19 @@
 }
 
 .footer-icons {
-  margin-top: 10px;
-  display: flex;
+  color: black;
+  margin-bottom: 10px;
+  /* margin-top: 10px; */
+  display: inline-flex;
   justify-content: center;
   gap: 20px;
 }
 
 .footer-icons a {
-  color: #9ca3af;
+  color: black;
   font-size: 24px;
   transition: color 0.3s;
+  margin-bottom: 10px;
 }
 
 .footer-icons a:hover {
@@ -24,6 +30,6 @@
   width: 40px;
   background: rgba(0, 0, 0, 0.1) !important;
   box-shadow: 0 2px 4px rgba(0, 139, 139, 0.5) !important;
-  transform: translateY(-2px) !important;
-  color: black;
+  /* transform: translateY(-2px) !important; */
+  color: indigo !important;
 }

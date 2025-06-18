@@ -1,8 +1,13 @@
 import React, { useEffect, useState } from "react";
 import "./recentFileData.css";
 import { useNavigate } from "react-router-dom";
-import { Table } from "@mui/material";
-import { TableBody, TableCell, TableHead, TableRow } from "@mui/material";
+import {
+  TableBody,
+  TableCell,
+  TableHead,
+  TableRow,
+  TableContainer,
+} from "@mui/material";
 
 const RecentFileData = () => {
   const [files, setFiles] = useState([]);
@@ -73,16 +78,15 @@ const RecentFileData = () => {
           ))}
         </tbody>
       </Table> */}
-      
-      <Table sx={{ minWidth: 650 }} aria-label="simple table">
+      <TableContainer className="recent-file-table">
         <TableHead>
           <TableRow>
-            <TableCell>Sr No.</TableCell>
-            <TableCell align="right">File Name</TableCell>
-            <TableCell align="right">File Type</TableCell>
-            <TableCell align="right">File Size</TableCell>
-            <TableCell align="right">File Date</TableCell>
-            <TableCell align="right">File Action</TableCell>
+            <TableCell style={{ color: "white", fontWeight: "bold" }}>Sr No.</TableCell>
+            <TableCell align="left" style={{ color: "white", fontWeight: "bold" }}>File Name</TableCell>
+            <TableCell align="left" style={{ color: "white", fontWeight: "bold" }}>File Type</TableCell>
+            <TableCell align="left" style={{ color: "white", fontWeight: "bold" }}>File Size</TableCell>
+            <TableCell align="left" style={{ color: "white", fontWeight: "bold" }}>File Date</TableCell>
+            <TableCell align="left" style={{ color: "white", fontWeight: "bold" }}>File Action</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -91,24 +95,24 @@ const RecentFileData = () => {
               key={file._id}
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
             >
-              <TableCell component="th" scope="row">
+              <TableCell component="th" scope="row" style={{ color: "white"}}>
                 {index + 1}
               </TableCell>
-              <TableCell align="right">{file.fileName}</TableCell>
-              <TableCell align="right">
+              <TableCell align="left" style={{ color: "white" }}>{file.fileName}</TableCell>
+              <TableCell align="left" style={{ color: "white" }}>
                 {file.fileType.includes("spreadsheetml.sheet")
                   ? "xlsx"
                   : file.fileType.includes("ms-excel")
                   ? "Xls"
                   : "other"}
               </TableCell>
-              <TableCell align="right">
+              <TableCell align="left" style={{ color: "white" }}>
                 {(file.size / 1024).toFixed(2)} MB
               </TableCell>
-              <TableCell align="right">
+              <TableCell align="left" style={{ color: "white" }}>
                 {new Date(file.uploadDate).toLocaleString()}
               </TableCell>
-              <TableCell align="right">
+              <TableCell align="left" style={{ color: "white" }}>
                 <button
                   className="delete-btn"
                   onClick={() => handleDelete(file._id)}
@@ -119,7 +123,7 @@ const RecentFileData = () => {
             </TableRow>
           ))}
         </TableBody>
-      </Table>
+      </TableContainer>
     </div>
   );
 };

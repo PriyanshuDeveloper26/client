@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 // import { useNavigate } from "react-router-dom";
 import './totalFileHistory.css'
-import { Table } from "react-bootstrap";
+import { TableBody, TableCell, TableHead, TableRow, TableContainer } from "@mui/material";
 import axios from 'axios';
 
 const TotalFileHistory = () => {
@@ -28,46 +28,46 @@ const TotalFileHistory = () => {
   };
 
   return (
-    <div>
-      <div className="row-layout">
+    <div align="center">
+      <div className="row-layout" align="center">
         <div className="total-files">Total Files</div>
         {/* <button className="upload-btn" onClick={() => navigate("/uploads")}>
           {" "}
           + Upload
         </button> */}
       </div>
-      <Table striped bordered hover className="total-file-table" variant="dark">
-        <thead>
-          <tr>
-            <th>Sr No.</th>
-            <th>File Name</th>
-            <th>File Type</th>
-            <th>File Size</th>
-            <th>File Date</th>
-            <th>File Action</th>
-          </tr>
-        </thead>
-        <tbody>
+      <TableContainer className="total-file-table">
+        <TableHead>
+          <TableRow>
+            <TableCell align="left" style={{ color: "white", fontWeight: "bold" }}>Sr No.</TableCell>
+            <TableCell align="left" style={{ color: "white", fontWeight: "bold" }}>File Name</TableCell>
+            <TableCell align="left" style={{ color: "white", fontWeight: "bold" }}>File Type</TableCell>
+            <TableCell align="left" style={{ color: "white", fontWeight: "bold" }}>File Size</TableCell>
+            <TableCell align="left" style={{ color: "white", fontWeight: "bold" }}>File Date</TableCell>
+            <TableCell align="left" style={{ color: "white", fontWeight: "bold" }}>File Action</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
           {files.map((file, index) => (
-            <tr key={file._id}>
-              <td>{index + 1}</td>
-              <td>{file.fileName}</td>
-              <td>
+            <TableRow key={file._id}>
+              <TableCell align="left" style={{ color: "white" }}>{index + 1}</TableCell>
+              <TableCell align="left" style={{ color: "white" }}>{file.fileName}</TableCell>
+              <TableCell align="left" style={{ color: "white" }}>
                 {file.fileType.includes("spreadsheetml.sheet")
                   ? "xlsx"
                   : file.fileType.includes("ms-excel")
                   ? "Xls"
                   : "other"}
-              </td>
-              <td>{(file.size / 1024).toFixed(2)} MB</td>
-              <td>{new Date(file.uploadDate).toLocaleString()}</td>
-              <td>
+              </TableCell>
+              <TableCell align="left" style={{ color: "white" }}>{(file.size / 1024).toFixed(2)} MB</TableCell>
+              <TableCell align="left" style={{ color: "white" }}>{new Date(file.uploadDate).toLocaleString()}</TableCell>
+              <TableCell align="left" style={{ color: "white" }}>
                 <button className="total-file-delete-btn" onClick={() => handleDelete(file._id)}>Delete</button>
-              </td>
-            </tr>
+              </TableCell>
+            </TableRow>
           ))}
-        </tbody>
-      </Table>
+        </TableBody>
+      </TableContainer>
     </div>
   );
 };

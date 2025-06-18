@@ -13,10 +13,9 @@ function ChartDashboard() {
   const [yField, setYField] = useState("");
   const [chartType, setChartType] = useState("bar");
   const [chartData, setChartData] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    fetch("http://localhost:5000/file/upload")
+    fetch("http://localhost:5000/file/recentfiles")
       .then((res) => res.json())
       .then((data) => setFileList(data))
       .catch((err) => console.error("Failed to fetch files", err));
@@ -24,7 +23,7 @@ function ChartDashboard() {
 
   const fetchFileData = async (fileId) => {
     try {
-      const res = await fetch(`http://localhost:5000/file/upload/${fileId}`);
+      const res = await fetch(`http://localhost:5000/file/recentfiles/${fileId}`);
       const data = await res.json();
       setRawData(data);
       if (data.length > 0) {
@@ -59,67 +58,20 @@ function ChartDashboard() {
     }
   }, [rawData, xField, yField, chartType]);
 
-  const handleUpload = async (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
-
-    const formData = new FormData();
-    formData.append("file", file);
-
-    try {
-      setIsLoading(true);
-      const response = await fetch("http://localhost:5000/file/upload", {
-        method: "POST",
-        body: formData,
-      });
-
-      const result = await response.json();
-      setIsLoading(false);
-
-      if (result._id) {
-        setSelectedFileId(result._id);
-        fetchFileData(result._id);
-        fetch("http://localhost:5000/file/upload")
-          .then((res) => res.json())
-          .then((data) => setFileList(data));
-      } else {
-        alert("Upload failed: Invalid response");
-      }
-    } catch (err) {
-      setIsLoading(false);
-      console.error("Upload error", err);
-      alert("Upload failed. Check backend logs.");
-    }
-  };
 
   return (
-    <div style={{ marginLeft: "260px", marginRight: "10px", marginTop: "20px" }}>
+    <div style={{ marginLeft: "260px", marginRight: "10px", marginTop: "10px" }}>
       <h2 style={{ fontSize: "2rem", fontWeight: "bold", marginBottom: "1rem" }}>📊 Chart Dashboard</h2>
-
-      <input type="file" onChange={handleUpload} className="mb-4" />
-      {isLoading && <p className="text-blue-500 mb-4">Uploading...</p>}
-
       {fileList.length > 0 && (
-        <div className="mb-4">
-          <label className="mr-2 font-semibold">Select File:</label>
-          <select
-            className="border p-2 rounded"
-            value={selectedFileId}
-            onChange={(e) => {
-              setSelectedFileId(e.target.value);
-              fetchFileData(e.target.value);
-            }}
-          >
-            <option value="">-- Choose File --</option>
-            {fileList.map((file) => (
-              <option key={file._id} value={file._id}>
-                {file.filename}
-              </option>
-            ))}
-          </select>
-        </div>
+        <select className="mb-4" value={selectedFileId} onChange={(e) => setSelectedFileId(e.target.value) && fetchFileData(e.target.value)}>
+          <option value="">-- Choose File --</option>
+          {fileList.map((file) => (
+            <option key={file._id} value={file._id}>
+              {file.filename}
+          </option>
+        ))}
+      </select>
       )}
-
       {rawData.length > 0 && (
         <div className="mb-6 flex gap-4 flex-wrap">
           <div>

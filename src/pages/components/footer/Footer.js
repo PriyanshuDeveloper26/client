@@ -9,7 +9,7 @@ import "./Footer.css";
 
 const Footer = () => {
   return (
-    <footer className="footer">
+    <footer className="footer-row-layout">
       <p>
         &copy; {new Date().getFullYear()} Excel Analytics Platform. All rights
         reserved.
