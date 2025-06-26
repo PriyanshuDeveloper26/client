@@ -1,9 +1,6 @@
 import React, { useState } from "react";
-import { Form, Button } from "react-bootstrap";
-import "./Signup.css";
 import { useNavigate } from "react-router-dom";
-// import Signuplogo from "D:/excel_analytics_platform_zidio/Frontend/src/assets/images/sign_up_page.jpg";
-import Header from "../../header/Header";
+import { Skeleton } from "@mui/material";
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -89,75 +86,84 @@ const Signup = () => {
 
   return (
     <>
-    <Header />
-    {/* <div className="signup-row-container"> */}
-      {/* <div className="signup-image-section">
-        <img src={Signuplogo} alt="Signup" className="signup-side-image" />
-      </div> */}
-      <div className="signup-center-form">
-        <Form onSubmit={handleSubmit}>
-          <h1>Signup</h1>
+      <div className="h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-gray-900 via-black to-gray-900 text-gray-100 min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 via-black to-gray-900 text-white p-4">
+        <form onSubmit={handleSubmit} className="w-full max-w-md p-10 bg-white/10 rounded-xl backdrop-blur-sm border border-white/20 shadow-lg shadow-black/30 text-black">
+          <h1 className="text-5xl font-bold font-style:italic mb-10 text-center text-green-200">Signup</h1>
           {/* {error && <p className="text-danger">{error}</p>} */}
-          <Form.Group controlId="formBasicName">
-            <Form.Label style={{color: "black"}}>Name</Form.Label>
-            <Form.Control
+          <div className="mb-5">
+            <label className="block text-black font-bold mb-2 text-center text-gray-100">Name</label>
+            <input
               type="text"
               name="name"
               placeholder="Enter name"
               value={formData.name}
               onChange={handleInputChange}
+              className="w-full px-4 py-3 rounded-lg bg-white/10 backdrop-blur-sm border border-white/20 focus:outline-none focus:shadow-outline hover:border-white/40"
             />
-          </Form.Group>
+          </div>
 
-          <Form.Group controlId="formBasicEmail">
-            <Form.Label style={{color: "black"}}>Email address</Form.Label>
-            <Form.Control
+          <div className="mb-5">
+            <label className="block text-black font-bold mb-2 text-center text-gray-100">Email address</label>
+            <input
               type="email"
               name="email"
               placeholder="Enter email"
               value={formData.email}
               onChange={handleInputChange}
+              className="w-full px-4 py-3 rounded-lg bg-white/10 backdrop-blur-sm border border-white/20 focus:outline-none focus:shadow-outline hover:border-white/40"
             />
-          </Form.Group>
+          </div>
 
-          <Form.Group controlId="formBasicPassword">
-            <Form.Label style={{color: "black"}}>Password</Form.Label>
-            <Form.Control
+          <div className="mb-5">
+            <label className="block text-black font-bold mb-2 text-center text-gray-100">Password</label>
+            <input
               type={showPassword ? "text" : "password"}
               name="password"
               placeholder="Password"
               value={formData.password}
               onChange={handleInputChange}
+              className="w-full px-4 py-3 rounded-lg bg-white/10 backdrop-blur-sm border border-white/20 focus:outline-none focus:shadow-outline hover:border-white/40"
             />
-            <div className="show-password-checkbox">
-              <div>
+            <div className="flex justify-between items-center mt-2 mb-4 text-sm text-black">
+              <div className="flex items-center gap-2">
                 <input
                   type="checkbox"
                   id="showPassword"
                   checked={showPassword}
                   onChange={() => setShowPassword(!showPassword)}
+                  className="cursor-pointer"
                 />
-                <label htmlFor="showPassword" className="show-password-label">
+                <label
+                  htmlFor="showPassword"
+                  className="cursor-pointer font-medium text-gray-100"
+                >
                   Show Password
                 </label>
               </div>
             </div>
-          </Form.Group>
+          </div>
           <br />
-          <Button
+          <button
             type="submit"
-            variant="dark"
-            className="w-100"
+            className="w-full py-3 rounded-lg bg-green-900 text-white font-bold hover:bg-green-900 hover:shadow-lg hover:shadow-white/10 transform hover:-translate-y-0.5 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
             disabled={isLoading}
           >
-            {isLoading ? "Signing up..." : "Signup"}
-          </Button>
-          <br />
-          <br />
-          <text>Already have an account? <a href="/login">Login</a></text>
-        </Form>
+            {isLoading ? (
+              <Skeleton
+                variant="rectangular"
+                color="cyan"
+                className="w-full h-10"
+                animation="wave"
+              />
+            ) : (
+              "Signup"
+            )}
+          </button>
+          <p className="mt-6 text-center text-sm text-gray-100">
+            Already have an account? <a href="/login" className="text-blue-500 hover:text-blue-600 underline">Login</a>
+          </p>
+        </form>
       </div>
-    {/* </div> */}
     </>
   );
 };

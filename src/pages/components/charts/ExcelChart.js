@@ -88,12 +88,8 @@ function ChartDashboard() {
   };
 
   return (
-    <div
-      style={{ marginLeft: "260px", marginRight: "10px", marginTop: "10px" }}
-    >
-      <h2
-        style={{ fontSize: "2rem", fontWeight: "bold", marginBottom: "1rem" }}
-      >
+    <div className="ml-64 mr-2.5 mt-2.5">
+      <h2 className="text-2xl font-bold mb-4 text-white">
         📊 Chart Dashboard
       </h2>
       {fileList.length > 0 ? (
@@ -103,13 +99,7 @@ function ChartDashboard() {
             onChange={(e) =>
               setSelectedFileId(e.target.value) && fetchFileData(e.target.value)
             }
-            style={{
-              width: "200px",
-              height: "40px",
-              borderRadius: "5px",
-              border: "1px solid #ccc",
-              marginRight: "10px",
-            }}
+            className="w-50 h-10 rounded border border-gray-300 mr-2.5"
           >
             <option value="">-- Choose File --</option>
             {fileList.map((file) => (
@@ -121,13 +111,7 @@ function ChartDashboard() {
           <select
             value={chartType}
             onChange={(e) => setChartType(e.target.value)}
-            style={{
-              marginRight: "10px",
-              width: "200px",
-              height: "40px",
-              borderRadius: "5px",
-              border: "1px solid #ccc",
-            }}
+            className="mr-2.5 w-50 h-10 rounded border border-gray-300"
           >
             <option value="">-- Choose Chart Type --</option>
             <option value="bar">Bar</option>
@@ -137,88 +121,34 @@ function ChartDashboard() {
             <option value="live">Live</option>
           </select>
           {chartType === "3d" ? (
-            <div style={{ display: "flex", marginTop: "10px" }}>
-              <select
-                style={{
-                  width: "200px",
-                  height: "40px",
-                  borderRadius: "5px",
-                  border: "1px solid #ccc",
-                  marginRight: "10px",
-                }}
-              >
+            <div className="flex mt-2.5">
+              <select className="w-50 h-10 rounded border border-gray-300 mr-2.5">
                 <option value="">Select X Axis</option>
                 <option value="">{xField}</option>
               </select>
-              <select
-                style={{
-                  width: "200px",
-                  height: "40px",
-                  borderRadius: "5px",
-                  border: "1px solid #ccc",
-                  marginRight: "10px",
-                }}
-              >
+              <select className="w-50 h-10 rounded border border-gray-300 mr-2.5">
                 <option value="">Select Y Axis</option>
                 <option value="">{yField}</option>
               </select>
-              <select
-                style={{
-                  width: "200px",
-                  height: "40px",
-                  borderRadius: "5px",
-                  border: "1px solid #ccc",
-                  marginRight: "10px",
-                }}
-              >
+              <select className="w-50 h-10 rounded border border-gray-300 mr-2.5">
                 <option value="">Select Z Axis</option>
                 <option value="">{xField}</option>
               </select>
             </div>
           ) : (
-            <div style={{ display: "flex", marginTop: "10px" }}>
-            <select
-              style={{
-                width: "200px",
-                height: "40px",
-                borderRadius: "5px",
-                border: "1px solid #ccc",
-                marginRight: "10px",
-              }}
-            >
-              <option value="">Select X Axis</option>
-              <option value="">{xField}</option>
-            </select>
-            <select
-              style={{
-                width: "200px",
-                height: "40px",
-                borderRadius: "5px",
-                border: "1px solid #ccc",
-                marginRight: "10px",
-              }}
-            >
-              <option value="">Select Y Axis</option>
-              <option value="">{yField}</option>
-            </select>
+            <div className="flex mt-2.5">
+              <select className="w-50 h-10 rounded border border-gray-300 mr-2.5">
+                <option value="">Select X Axis</option>
+                <option value="">{xField}</option>
+              </select>
+              <select className="w-50 h-10 rounded border border-gray-300 mr-2.5">
+                <option value="">Select Y Axis</option>
+                <option value="">{yField}</option>
+              </select>
             </div>
           )}
           <button
-              style={{
-                marginTop: "10px",
-                background: "rgba(0, 0, 0, 0.1)",
-                boxShadow: "0 2px 4px rgba(0, 139, 139, 0.5)",
-                transform: "translateY(-2px)",
-                color: "black",
-                fontSize: "16px",   
-                fontWeight: "500",
-                borderRadius: "5px",
-                border: "1px solid #ccc",
-                cursor: "pointer",
-                width: "200px",
-                height: "40px",
-                marginLeft: "10px",
-              }}
+              className="mt-2.5 bg-gray-100 shadow-md transform -translate-y-0.5 text-black text-base font-medium rounded border border-gray-300 cursor-pointer w-50 h-10 ml-2.5"
               onClick={handleGenerateChart}
             >
               Generate Chart
@@ -228,32 +158,12 @@ function ChartDashboard() {
         <div>
           <Alert
             severity="warning"
-            style={{
-              marginTop: "20px",
-              color: "red",
-              backgroundColor: "transparent",
-              fontSize: "20px",
-              fontWeight: "bold",
-            }}
+            className="mt-5 text-red-600 bg-transparent text-2xl font-bold"
           >
             Upload a file first
           </Alert>
           <button
-            style={{
-              marginTop: "20px",
-              background: "rgba(0, 0, 0, 0.1)",
-              boxShadow: "0 2px 4px rgba(0, 139, 139, 0.5)",
-              transform: "translateY(-2px)",
-              color: "black",
-              fontSize: "16px",
-              fontWeight: "500",
-              borderRadius: "5px",
-              border: "1px solid #ccc",
-              cursor: "pointer",
-              width: "200px",
-              height: "40px",
-              marginLeft: "10px",
-            }}
+            className="mt-5 bg-gray-100 shadow-md transform -translate-y-0.5 text-black text-base font-medium rounded border border-gray-300 cursor-pointer w-50 h-10 ml-2.5"
             onClick={() => navigate("/uploads")}
           >
             Upload File

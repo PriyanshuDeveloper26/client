@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "./recentFileData.css";
+
 import { Button } from "@mui/material";
 import {
   TableBody,
@@ -33,23 +33,23 @@ const RecentFileData = () => {
       .catch((err) => console.error("Delete error:", err));
   };
   return (
-    <div>
-      <div className="row-layout">
-        <div className="recent-files">Recent Files</div>
+    <div className="space-y-4">
+      <div className="grid grid-cols-2 gap-4">
+        <div className="text-2xl font-bold text-black">Recent Files</div>
         {/* <button className="upload-btn" onClick={() => navigate("/uploads")}>
           {" "}
           + Upload
         </button> */}
       </div>
-      <TableContainer className="recent-file-table">
+      <TableContainer className="w-fit font-sans text-base bg-[#111827] rounded-lg shadow-sm p-5">
         <TableHead>
           <TableRow>
-            <TableCell style={{ color: "white", fontWeight: "bold" }}>Sr No.</TableCell>
-            <TableCell align="left" style={{ color: "white", fontWeight: "bold" }}>File Name</TableCell>
-            <TableCell align="left" style={{ color: "white", fontWeight: "bold" }}>File Type</TableCell>
-            <TableCell align="left" style={{ color: "white", fontWeight: "bold" }}>File Size</TableCell>
-            <TableCell align="left" style={{ color: "white", fontWeight: "bold" }}>Uploaded On</TableCell>
-            <TableCell align="left" style={{ color: "white", fontWeight: "bold" }}>File Action</TableCell>
+            <TableCell className="text-white font-bold">Sr No.</TableCell>
+            <TableCell align="left" className="text-white font-bold">File Name</TableCell>
+            <TableCell align="left" className="text-white font-bold">File Type</TableCell>
+            <TableCell align="left" className="text-white font-bold">File Size</TableCell>
+            <TableCell align="left" className="text-white font-bold">Uploaded On</TableCell>
+            <TableCell align="left" className="text-white font-bold">File Action</TableCell>
           </TableRow>
         </TableHead>
         {files.length > 0 ? (
@@ -59,37 +59,27 @@ const RecentFileData = () => {
               key={file._id}
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
             >
-              <TableCell component="th" scope="row" style={{ color: "white"}}>
+              <TableCell component="th" scope="row" className="text-white">
                 {index + 1}
               </TableCell>
-              <TableCell align="left" style={{ color: "white" }}>{file.fileName}</TableCell>
-              <TableCell align="left" style={{ color: "white" }}>
+              <TableCell align="left" className="text-white">{file.fileName}</TableCell>
+              <TableCell align="left" className="text-white">
                 {file.fileType.includes("spreadsheetml.sheet")
                   ? "xlsx"
                   : file.fileType.includes("ms-excel")
                   ? "xls"
                   : "other"}
               </TableCell>
-              <TableCell align="left" style={{ color: "white" }}>
+              <TableCell align="left" className="text-white">
                 {(file.size / 1024).toFixed(2)} {file.size.toString().length < 1024 ? "KB" : "MB"}
               </TableCell>
-              <TableCell align="left" style={{ color: "white" }}>
+              <TableCell align="left" className="text-white">
                 {new Date(file.uploadDate).toLocaleString()}
               </TableCell>
-              <TableCell align="left" style={{ color: "white" }}>
-                {/* <button
-                  className="delete-btn"
-                  onClick={() => handleDelete(file._id)}
-                >
-                  Delete
-                </button> */}
-                <Button className="delete-btn" onClick={() => handleDelete(file._id)}>
+              <TableCell align="left" className="text-white">
+                <Button className="w-12 h-12 rounded-full bg-transparent text-[#f5f5f5] hover:text-white transition-colors duration-200" onClick={() => handleDelete(file._id)}>
                   <FontAwesomeIcon icon={faTrash} />
                 </Button>
-                {/* /
-                <Button className="Analyze-btn" onClick={() => navigate(`/charts`)}>
-                  <FontAwesomeIcon icon={faFile} />
-                </Button> */}
               </TableCell>
             </TableRow>
           ))}
@@ -97,7 +87,7 @@ const RecentFileData = () => {
       ) : (
         <TableBody>
           <TableRow>
-            <TableCell colSpan={6} align="center">
+            <TableCell colSpan={6} align="center" className="text-white">
               No files found
             </TableCell>
           </TableRow>

@@ -1,5 +1,5 @@
 // import React, { useState } from 'react';
-import "./Forgot_password.css";
+
 import { motion } from "framer-motion";
 
 const ForgotPassword = () => {
@@ -29,13 +29,14 @@ const ForgotPassword = () => {
 //   };
 
   return (
-    <div className="forgot-password-container">
-      <h2>Forgot Password</h2>
-      <form>
+    <div className="max-w-md mx-auto px-8 py-7.5 bg-opacity-10 backdrop-blur-sm border border-white/20 rounded-3xl shadow-xl text-white font-sans text-center">
+      <h2 className="mb-5 text-2xl">Forgot Password</h2>
+      <form className="flex flex-col gap-3.75">
         <input
           type="email"
           placeholder="Enter your email"
           required
+          className="px-3 py-3 rounded-lg border-none outline-none text-base"
         />
         {/* <button type="submit">
           Send Reset Link
@@ -45,6 +46,7 @@ const ForgotPassword = () => {
           animate={{ scale: 1 }}
           whileTap={{ scale: 0.8 }}
           onClick={() => {}}
+          className="px-3 py-3 bg-darkcyan text-white rounded-lg font-bold cursor-pointer hover:bg-[#040330] hover:shadow-lg hover:shadow-white/50 transition-all duration-300"
         >
           Send Reset Link
         </motion.button>

@@ -1,139 +1,131 @@
 import React from "react";
-import "./sidebar.css";
 import { Link } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faSignOutAlt,
-  faFileUpload,
-  faChartLine,
-  faUser,
-  faHome,
-  faClock,
-} from "@fortawesome/free-solid-svg-icons";
+  FaHome,
+  FaCloudUploadAlt,
+  FaFileAlt,
+  FaUserCircle,
+  FaSignOutAlt,
+} from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 const Sidebar = () => {
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    localStorage.clear();
+    navigate("/login");
+  };
   return (
     <>
       {localStorage.getItem("role") === "admin" ? (
-        <div className={`sidebar`}>
-        <h2 className="sidebar-title"> 📊 Excel Analytics Platform</h2>
-        <ul className="sidebar-menu">
-          <li>
-            <Link to="/admin-dashboard">
-              <FontAwesomeIcon
-                icon={faHome}
-                style={{ marginRight: "10px", color: "pink" }}
-              />
-              Home
-            </Link>
-          </li>
-          <li>
-            <Link to="/uploads">
-              <FontAwesomeIcon
-                icon={faFileUpload}
-                style={{ marginRight: "10px", color: "blue" }}
-              />
-              Manage Files
-            </Link>
-          </li>
-          <li>
-            <Link to="/charts">
-              <FontAwesomeIcon
-                icon={faChartLine}
-                style={{ marginRight: "10px", color: "green" }}
-              />
-              Manage Users
-            </Link>
-          </li>
-          <li>
-            <Link to="/uploads/total-files">
-              <FontAwesomeIcon
-                icon={faClock}
-                style={{ marginRight: "10px", color: "yellow" }}
-              />
-              Manage Activity
-            </Link>
-          </li>
-          <li>
-            <Link to="/uploads/total-files">
-              <FontAwesomeIcon
-                icon={faUser}
-                style={{ marginRight: "10px", color: "orange" }}
-              />
-              Manage Profile
-            </Link>
-          </li>
-          <li className="logout">
-            <Link to="/login" onClick={() => localStorage.clear()}>
-              <FontAwesomeIcon
-                icon={faSignOutAlt}
-                style={{ marginRight: "10px", color: "red" }}
-              />
-              Logout {localStorage.getItem("name")}
-            </Link>
-          </li>
-        </ul>
-      </div>
+        <div className="hidden sm:flex fixed top-0 left-0 h-full w-56 bg-gray-900 text-white shadow-lg z-50 flex-col justify-between py-6">
+          <div>
+            <h1 className="text-center text-2xl font-bold mb-6 text-green-400">
+              InsightCraft
+            </h1>
+            <hr className="border-gray-700 mb-6" />
+            <ul className="flex flex-col gap-4">
+              <Link
+                to="/admin-dashboard"
+                className="flex items-center gap-3 px-4 py-2 hover:bg-gray-800 rounded-md transition"
+              >
+                <FaHome className="text-lg" />
+                <span>Dashboard</span>
+              </Link>
+              <Link
+                to=""
+                className="flex items-center gap-3 px-4 py-2 bg-gray-800 rounded-md transition"
+              >
+                <FaCloudUploadAlt className="text-lg" />
+                <span>Manage Users</span>
+              </Link>
+              <Link
+                to=""
+                className="flex items-center gap-3 px-4 py-2 hover:bg-gray-800 rounded-md transition"
+              >
+                <FaFileAlt className="text-lg" />
+                <span>Manage Files</span>
+              </Link>
+              <Link
+                to=""
+                className="flex items-center gap-3 px-4 py-2 hover:bg-gray-800 rounded-md transition"
+              >
+                <FaFileAlt className="text-lg" />
+                <span>Manage Charts</span>
+              </Link>
+              <Link
+                to=""
+                className="flex items-center gap-3 px-4 py-2 hover:bg-gray-800 rounded-md transition"
+              >
+                <FaUserCircle className="text-lg" />
+                <span>Profile</span>
+              </Link>
+            </ul>
+          </div>
+          <div className="px-4 mt-6 border-t border-gray-700 pt-4">
+            <div className="flex items-center gap-3">
+              <button
+                className="text-red-400 text-xs hover:underline flex items-center gap-1"
+                onClick={handleLogout}
+              >
+                <FaSignOutAlt className="text-xs" /> Logout
+              </button>
+            </div>
+          </div>
+        </div>
       ) : (
-        <div className={`sidebar`}>
-        <h2 className="sidebar-title"> 📊 Excel Analytics Platform</h2>
-        <ul className="sidebar-menu">
-          <li>
-            <Link to="/dashboard">
-              <FontAwesomeIcon
-                icon={faHome}
-                style={{ marginRight: "10px", color: "pink" }}
-              />
-              Home
-            </Link>
-          </li>
-          <li>
-            <Link to="/uploads">
-              <FontAwesomeIcon
-                icon={faFileUpload}
-                style={{ marginRight: "10px", color: "blue" }}
-              />
-              Upload Files
-            </Link>
-          </li>
-          <li>
-            <Link to="/charts">
-              <FontAwesomeIcon
-                icon={faChartLine}
-                style={{ marginRight: "10px", color: "green" }}
-              />
-              Charts 
-            </Link>
-          </li>
-          <li>
-            <Link to="/uploads/total-files">
-              <FontAwesomeIcon
-                icon={faClock}
-                style={{ marginRight: "10px", color: "yellow" }}
-              />
-              Recent Activity
-            </Link>
-          </li>
-          <li>
-            <Link to="/uploads/total-files">
-              <FontAwesomeIcon
-                icon={faUser}
-                style={{ marginRight: "10px", color: "orange" }}
-              />
-              User Profile
-            </Link>
-          </li>
-          <li className="logout">
-            <Link to="/login" onClick={() => localStorage.clear()}>
-              <FontAwesomeIcon
-                icon={faSignOutAlt}
-                style={{ marginRight: "10px", color: "red" }}
-              />
-              Logout {localStorage.getItem("name")}
-            </Link>
-          </li>
-        </ul>
-      </div>
+        <div className="hidden sm:flex fixed top-0 left-0 h-full w-56 bg-gray-900 text-white shadow-lg z-50 flex-col justify-between py-6">
+          <div>
+            <h1 className="text-center text-2xl font-bold mb-6 text-green-400">
+              InsightCraft
+            </h1>
+            <hr className="border-gray-700 mb-6" />
+            <ul className="flex flex-col gap-4">
+              <Link
+                to="/dashboard"
+                className="flex items-center gap-3 px-4 py-2 hover:bg-gray-800 rounded-md transition"
+              >
+                <FaHome className="text-lg" />
+                <span>Dashboard</span>
+              </Link>
+              <Link
+                to="/uploads"
+                className="flex items-center gap-3 px-4 py-2 hover:bg-gray-800 rounded-md transition"
+              >
+                <FaCloudUploadAlt className="text-lg" />
+                <span>Upload File</span>
+              </Link>
+              <Link
+                to="/charts"
+                className="flex items-center gap-3 px-4 py-2 hover:bg-gray-800 rounded-md transition"
+              >
+                <FaFileAlt className="text-lg" />
+                <span>Generate Chart</span>
+              </Link>
+              <Link
+                to="/user-profile"
+                className="flex items-center gap-3 px-4 py-2 hover:bg-gray-800 rounded-md transition"
+              >
+                <FaUserCircle className="text-lg" />
+                <span>Profile</span>
+              </Link>
+            </ul>
+          </div>
+          <div className="px-4 mt-6 border-t border-gray-700 pt-4">
+            <div className="flex items-center gap-3">
+              <button
+                className="text-red-400 text-xs hover:underline flex items-center gap-1"
+                onClick={() => {
+                  localStorage.clear();
+                  navigate("/login");
+                }}
+              >
+                <FaSignOutAlt className="text-xs" /> Logout{" "}
+                {localStorage.getItem("name")}
+              </button>
+            </div>
+          </div>
+        </div>
       )}
     </>
   );

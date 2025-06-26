@@ -31,11 +31,11 @@
   margin-bottom: 20px;
 }
 
-.center-form Form .form-control:focus {
+.center-form Form input:focus {
     box-shadow: 0 2px 4px 4px rgba(0, 0, 0, 0.1);
 }
 
-.center-form Form .form-control {
+.center-form Form input {
   margin-bottom: 20px;
   padding: 10px;
 }
@@ -60,7 +60,7 @@
   cursor: pointer;
   font-weight: 400;
 }
-.center-form Form .btn {
+.center-form Form button {
   width: 100%;
   padding: 12px;
   border: none;
@@ -73,7 +73,7 @@
   transition: background-color 0.3s;
 }
 
-.center-form Form .btn:hover {
+.center-form Form button:hover {
   color: white !important;
   background: rgba(0, 0, 0, 0.8) !important;
   box-shadow: 0 2px 4px rgba(0, 139, 139, 0.9) !important;

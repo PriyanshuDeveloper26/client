@@ -35,12 +35,12 @@
   font-weight: bold;
 }
 
-.signup-center-form Form .form-control {
+.signup-center-form Form input {
   margin-bottom: 20px;
   padding: 10px;
 }
 
-.signup-center-form Form .form-control:focus {
+.signup-center-form Form input:focus {
   box-shadow: 0 2px 4px 4px darkcyan;
 }
 
