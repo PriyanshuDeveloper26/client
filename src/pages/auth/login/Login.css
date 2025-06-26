@@ -1,9 +1,11 @@
 .center-form {
+  margin-top: 30px;
+  margin-bottom: 30px;
   display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    height: 90vh;
+    height: 80vh;
 }
 
 .center-form form {
@@ -16,8 +18,7 @@
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  color: white;
+  color: black;
   text-align: center;
   justify-content: center;
   align-items: center;
@@ -30,28 +31,36 @@
   margin-bottom: 20px;
 }
 
-.center-form Form label {
-  font-weight: bold;
+.center-form Form input:focus {
+    box-shadow: 0 2px 4px 4px rgba(0, 0, 0, 0.1);
 }
 
-/* .center-form Form .form-control:hover {
-    box-shadow: 0 2px 4px 4px darkcyan;
-} */
-
-.center-form Form .form-control:focus {
-    box-shadow: 0 2px 4px 4px darkcyan;
-}
-
-.center-form Form .form-control {
+.center-form Form input {
   margin-bottom: 20px;
   padding: 10px;
 }
 
-.center-form Form .btn {
-  /* padding: 10px 0;
-  border: none;
-  color: #fff; */
-  /*background-color: #1877f2;*/
+.show-password-checkbox {
+  justify-content: space-between;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9rem;
+  margin-top: -8px;
+  margin-bottom: 12px;
+  color: black;
+}
+
+.show-password-checkbox input {
+  cursor: pointer;
+}
+
+.show-password-checkbox .show-password-label {
+  margin-left: 5px;
+  cursor: pointer;
+  font-weight: 400;
+}
+.center-form Form button {
   width: 100%;
   padding: 12px;
   border: none;
@@ -64,10 +73,11 @@
   transition: background-color 0.3s;
 }
 
-.center-form Form .btn:hover {
-  /* box-shadow: 0 2px 4px 4px #040330; */
-   background-color: #040330;
-  box-shadow: 0 2px 4px 4px rgba(255, 255, 255, 0.5);
+.center-form Form button:hover {
+  color: white !important;
+  background: rgba(0, 0, 0, 0.8) !important;
+  box-shadow: 0 2px 4px rgba(0, 139, 139, 0.9) !important;
+  transform: translateY(-2px) !important;
 }
 
 .login-actions {
@@ -78,17 +88,11 @@
 
 .forgot-link {
   font-size: 14px;
-  color: #eeeeee;
+  color: black;
   text-decoration: underline;
   cursor: pointer;
 }
 
 .forgot-link:hover {
-  color: #ffffff;
+  color: blue;
 }
-
-
-
-/* .center-form Form:hover {
-  box-shadow: 0 2px 4px 4px #040330;
-} */
