@@ -10,7 +10,15 @@ import "./Footer.css";
 const Footer = () => {
   return (
     <footer className="footer-row-layout">
-      <p>
+      <p
+        style={{
+          marginBottom: "0px",
+          fontSize: "16px",
+          fontWeight: "400",
+          fontFamily: "times new roman",
+          color: "black",
+        }}
+      >
         &copy; {new Date().getFullYear()} Excel Analytics Platform. All rights
         reserved.
       </p>
@@ -22,7 +30,11 @@ const Footer = () => {
         >
           <FontAwesomeIcon icon={faLinkedin} />
         </a>
-        <a href="https://github.com/PriyanshuDeveloper26" target="_blank" rel="noopener noreferrer">
+        <a
+          href="https://github.com/PriyanshuDeveloper26"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           <FontAwesomeIcon icon={faGithub} />
         </a>
         <a

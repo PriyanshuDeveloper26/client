@@ -1,8 +1,3 @@
-/* .flex {
-    margin-left: 260px;
-    padding: 20px;
-} */
-
 .dashboard-row {
     display: flex;
     flex-direction: row;
@@ -39,22 +34,11 @@ h1 {
     color: black;
 }
 .dashboard-card .dashboard-label {
-    /* display: inline-block;
-      padding: 15px 30px;
-      background-color: #000000; Indigo */
-    /* color: white;
-      font-size: 16px;
-      font-weight: 600;
-      border-radius: 12px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); */
     width: 100%;
     max-width: 400px;
     padding: 30px;
     background: rgba(0, 0, 0, 0.1); /* semi-transparent white */
     border-radius: 16px;
-    /* padding: 20px; */
     backdrop-filter: blur(6px);
     -webkit-backdrop-filter: blur(6px);
     box-shadow: 8px 8px 8px rgba(0, 0, 0, 0.3);

@@ -1,39 +1,16 @@
-/* .signup-row-container {
-  display: grid;
-  grid-template-columns: 2.2fr 2fr;
-  align-items: center;
-  justify-content: center;
-  background: transparent;
-}
-
-.signup-image-section {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: transparent;
-  padding: 20px;
-}
-
-.signup-side-image {
-  max-width: 80%;
-  height: auto;
-  border-radius: 12px;
-} */
-
-.center-form {
+.signup-center-form {
   margin-top: 30px;
   margin-bottom: 30px;
   display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    height: 80vh;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 80vh;
 }
 
-.center-form form {
-    width: 100%;
+.signup-center-form form {
+  width: 100%;
   max-width: 400px;
-  padding: 20px;
   background: rgba(255, 255, 255, 0.1); /* semi-transparent white */
   border-radius: 16px;
   padding: 40px;
@@ -47,24 +24,48 @@
   align-items: center;
 }
 
-.center-form Form label {
+.signup-center-form Form h1 {
+  font-weight: bold;
+  font-family: cursive;
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+.signup-center-form Form label {
   font-weight: bold;
 }
 
-.center-form Form .form-control {
+.signup-center-form Form .form-control {
   margin-bottom: 20px;
   padding: 10px;
 }
 
-.center-form Form .form-control:focus {
+.signup-center-form Form .form-control:focus {
   box-shadow: 0 2px 4px 4px darkcyan;
 }
 
-.center-form Form .btn {
-  /* padding: 10px 0;
-  border: none;
-  color: #fff; */
-  /*background-color: #1877f2;*/
+.show-password-checkbox {
+  justify-content: space-between;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9rem;
+  margin-top: -8px;
+  margin-bottom: 12px;
+  color: black;
+}
+
+.show-password-checkbox input {
+  cursor: pointer;
+}
+
+.show-password-checkbox .show-password-label {
+  margin-left: 5px;
+  cursor: pointer;
+  font-weight: 400;
+}
+
+.signup-center-form Form .btn {
   width: 100%;
   padding: 12px;
   border: none;
@@ -77,14 +78,9 @@
   transition: background-color 0.3s;
 }
 
-.center-form Form .btn:hover {
+.signup-center-form Form .btn:hover {
   color: white !important;
   background: rgba(0, 0, 0, 0.8) !important;
   box-shadow: 0 2px 4px rgba(0, 139, 139, 0.9) !important;
   transform: translateY(-2px) !important;
 }
-
-/* .center-form Form:hover {
-  box-shadow: 0 2px 4px 4px darkcyan;
-} */
- 

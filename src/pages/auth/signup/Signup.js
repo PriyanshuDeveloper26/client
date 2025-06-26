@@ -8,6 +8,7 @@ import Header from "../../header/Header";
 const Signup = () => {
   const navigate = useNavigate();
 
+  const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
   const [formData, setFormData] = useState({
@@ -93,7 +94,7 @@ const Signup = () => {
       {/* <div className="signup-image-section">
         <img src={Signuplogo} alt="Signup" className="signup-side-image" />
       </div> */}
-      <div className="center-form">
+      <div className="signup-center-form">
         <Form onSubmit={handleSubmit}>
           <h1>Signup</h1>
           {/* {error && <p className="text-danger">{error}</p>} */}
@@ -122,14 +123,27 @@ const Signup = () => {
           <Form.Group controlId="formBasicPassword">
             <Form.Label style={{color: "black"}}>Password</Form.Label>
             <Form.Control
-              type="password"
+              type={showPassword ? "text" : "password"}
               name="password"
               placeholder="Password"
               value={formData.password}
               onChange={handleInputChange}
             />
+            <div className="show-password-checkbox">
+              <div>
+                <input
+                  type="checkbox"
+                  id="showPassword"
+                  checked={showPassword}
+                  onChange={() => setShowPassword(!showPassword)}
+                />
+                <label htmlFor="showPassword" className="show-password-label">
+                  Show Password
+                </label>
+              </div>
+            </div>
           </Form.Group>
-
+          <br />
           <Button
             type="submit"
             variant="dark"
@@ -138,6 +152,9 @@ const Signup = () => {
           >
             {isLoading ? "Signing up..." : "Signup"}
           </Button>
+          <br />
+          <br />
+          <text>Already have an account? <a href="/login">Login</a></text>
         </Form>
       </div>
     {/* </div> */}

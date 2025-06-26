@@ -10,8 +10,6 @@
 
 .footer-icons {
   color: black;
-  margin-bottom: 10px;
-  /* margin-top: 10px; */
   display: inline-flex;
   justify-content: center;
   gap: 20px;
@@ -21,7 +19,6 @@
   color: black;
   font-size: 24px;
   transition: color 0.3s;
-  margin-bottom: 10px;
 }
 
 .footer-icons a:hover {
@@ -30,6 +27,5 @@
   width: 40px;
   background: rgba(0, 0, 0, 0.1) !important;
   box-shadow: 0 2px 4px rgba(0, 139, 139, 0.5) !important;
-  /* transform: translateY(-2px) !important; */
   color: indigo !important;
 }

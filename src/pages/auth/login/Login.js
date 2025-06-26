@@ -5,10 +5,12 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 // import logo from "D:/excel_analytics_platform_zidio/Frontend/src/assets/images/login_page.jpg";
 import Header from "../../header/Header";
+import { Skeleton } from "@mui/material";
 
 const Login = () => {
   const navigate = useNavigate();
 
+  const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
   const [formData, setFormData] = useState({
@@ -59,17 +61,12 @@ const Login = () => {
       });
       const result = await response.json();
       console.log(result);
-      if (formData.name === "admin" && formData.password === "admin@123") {
-        navigate("/admin-dashboard");
-        localStorage.setItem("token", result.token);
-        localStorage.setItem("role", "admin");
-        localStorage.setItem("name", formData.name);
-      } else {
-        navigate("/dashboard");
-        localStorage.setItem("token", result.token);
-        localStorage.setItem("role", "user");
-        localStorage.setItem("name", formData.name);
-      }
+      navigate("/welcomeBack");
+      localStorage.setItem("token", result.token);
+      formData.name === "Admin" && formData.password === "admin@123"
+        ? localStorage.setItem("role", "admin")
+        : localStorage.setItem("role", "user");
+      localStorage.setItem("name", result.name);
     } catch (error) {
       console.error(error);
     } finally {
@@ -83,8 +80,8 @@ const Login = () => {
 
   return (
     <>
-    <Header />
-    {/* <div className="login-row-container"> */}
+      <Header />
+      {/* <div className="login-row-container"> */}
 
       {/* login image */}
       {/* <div className="login-image-section">
@@ -92,12 +89,12 @@ const Login = () => {
       </div> */}
 
       {/* login form */}
-      <div className="center-form">
+      <div className="center-form" >
         <Form onSubmit={handleSubmit}>
           <h1>Login</h1>
           {/* {error && <p className="text-danger">{error}</p>} */}
           <Form.Group controlId="formBasicEmail">
-            <Form.Label style={{color: "black"}}>Name</Form.Label>
+            <Form.Label style={{ color: "black" }}>Name</Form.Label>
             <Form.Control
               type="text"
               name="name"
@@ -107,20 +104,33 @@ const Login = () => {
             />
           </Form.Group>
           <Form.Group controlId="formBasicPassword">
-            <Form.Label style={{color: "black"}}>Password</Form.Label>
+            <Form.Label style={{ color: "black" }}>Password</Form.Label>
             <Form.Control
-              type="password"
+              type={showPassword ? "text" : "password"}
               name="password"
               placeholder="Password"
               value={formData.password}
               onChange={handleInputChange}
             />
+            <div className="show-password-checkbox">
+              <div>
+                <input
+                  type="checkbox"
+                  id="showPassword"
+                  checked={showPassword}
+                  onChange={() => setShowPassword(!showPassword)}
+                />
+                <label htmlFor="showPassword" className="show-password-label">
+                  Show Password
+                </label>
+              </div>
+              <div className="login-actions">
+                <a href="forgot-password" className="forgot-link">
+                  Forgot Password?
+                </a>
+              </div>
+            </div>
           </Form.Group>
-          <div className="login-actions">
-            <a href="forgot-password" className="forgot-link">
-              Forgot Password?
-            </a>
-          </div>
           <br />
           <Button
             type="submit"
@@ -128,11 +138,14 @@ const Login = () => {
             className="w-100"
             disabled={isLoading}
           >
-            {isLoading ? "Logging in..." : "Login"}
+            {isLoading ? <Skeleton variant="rectangular" color="cyan" className="w-100" animation="wave" width="100%" padding={12} /> : "Login"}
           </Button>
+          <br />
+          <br />
+          <text>Don't have an account? <a href="/register">Register</a></text>
         </Form>
       </div>
-    {/* </div> */}
+      {/* </div> */}
     </>
   );
 };

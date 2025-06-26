@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./recentFileData.css";
-import { useNavigate } from "react-router-dom";
+import { Button } from "@mui/material";
 import {
   TableBody,
   TableCell,
@@ -8,6 +8,8 @@ import {
   TableRow,
   TableContainer,
 } from "@mui/material";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
 
 const RecentFileData = () => {
   const [files, setFiles] = useState([]);
@@ -18,7 +20,6 @@ const RecentFileData = () => {
       .then((data) => setFiles(data))
       .catch((err) => console.error("Fetch error:", err));
   }, []);
-  const navigate = useNavigate();
   const handleDelete = (id) => {
     fetch(`http://localhost:5000/file/recentfiles/${id}`, {
       method: "DELETE",
@@ -35,49 +36,11 @@ const RecentFileData = () => {
     <div>
       <div className="row-layout">
         <div className="recent-files">Recent Files</div>
-        <button className="upload-btn" onClick={() => navigate("/uploads")}>
+        {/* <button className="upload-btn" onClick={() => navigate("/uploads")}>
           {" "}
           + Upload
-        </button>
+        </button> */}
       </div>
-      {/* <Table striped bordered hover>
-        <thead>
-          {files.length > 0 ? (
-            <tr>
-            <th>Sr No.</th>
-            <th>File Name</th>
-            <th>File Type</th>
-            <th>File Size</th>
-            <th>File Date</th>
-            <th>File Action</th>
-          </tr>
-          ) : (
-            <tr>
-              <td colSpan="6" className="text-center">No files found</td>
-            </tr>
-          )}
-        </thead>
-        <tbody>
-          {files.map((file, index) => (
-            <tr key={file._id}>
-              <td>{index + 1}</td>
-              <td>{file.fileName}</td>
-              <td>
-                {file.fileType.includes("spreadsheetml.sheet")
-                  ? "xlsx"
-                  : file.fileType.includes("ms-excel")
-                  ? "Xls"
-                  : "other"}
-              </td>
-              <td>{(file.size / 1024).toFixed(2)} MB</td>
-              <td>{new Date(file.uploadDate).toLocaleString()}</td>
-              <td>
-                <button className="delete-btn" onClick={() => handleDelete(file._id)}>Delete</button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </Table> */}
       <TableContainer className="recent-file-table">
         <TableHead>
           <TableRow>
@@ -85,10 +48,11 @@ const RecentFileData = () => {
             <TableCell align="left" style={{ color: "white", fontWeight: "bold" }}>File Name</TableCell>
             <TableCell align="left" style={{ color: "white", fontWeight: "bold" }}>File Type</TableCell>
             <TableCell align="left" style={{ color: "white", fontWeight: "bold" }}>File Size</TableCell>
-            <TableCell align="left" style={{ color: "white", fontWeight: "bold" }}>File Date</TableCell>
+            <TableCell align="left" style={{ color: "white", fontWeight: "bold" }}>Uploaded On</TableCell>
             <TableCell align="left" style={{ color: "white", fontWeight: "bold" }}>File Action</TableCell>
           </TableRow>
         </TableHead>
+        {files.length > 0 ? (
         <TableBody>
           {files.map((file, index) => (
             <TableRow
@@ -103,26 +67,42 @@ const RecentFileData = () => {
                 {file.fileType.includes("spreadsheetml.sheet")
                   ? "xlsx"
                   : file.fileType.includes("ms-excel")
-                  ? "Xls"
+                  ? "xls"
                   : "other"}
               </TableCell>
               <TableCell align="left" style={{ color: "white" }}>
-                {(file.size / 1024).toFixed(2)} MB
+                {(file.size / 1024).toFixed(2)} {file.size.toString().length < 1024 ? "KB" : "MB"}
               </TableCell>
               <TableCell align="left" style={{ color: "white" }}>
                 {new Date(file.uploadDate).toLocaleString()}
               </TableCell>
               <TableCell align="left" style={{ color: "white" }}>
-                <button
+                {/* <button
                   className="delete-btn"
                   onClick={() => handleDelete(file._id)}
                 >
                   Delete
-                </button>
+                </button> */}
+                <Button className="delete-btn" onClick={() => handleDelete(file._id)}>
+                  <FontAwesomeIcon icon={faTrash} />
+                </Button>
+                {/* /
+                <Button className="Analyze-btn" onClick={() => navigate(`/charts`)}>
+                  <FontAwesomeIcon icon={faFile} />
+                </Button> */}
               </TableCell>
             </TableRow>
           ))}
         </TableBody>
+      ) : (
+        <TableBody>
+          <TableRow>
+            <TableCell colSpan={6} align="center">
+              No files found
+            </TableCell>
+          </TableRow>
+        </TableBody>
+      )}
       </TableContainer>
     </div>
   );

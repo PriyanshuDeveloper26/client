@@ -1,9 +1,7 @@
 import { Routes, Route } from "react-router-dom";
-// import Header from "./pages/header/Header";
 import Login from "./pages/auth/login/Login";
 import Signup from "./pages/auth/signup/Signup";
 import Dashboard from "./pages/dashboard/Dashboard";
-// import Footer from "./pages/components/footer/Footer";
 import ForgotPassword from "./pages/components/forgot-password/Forgot_password";
 import ResetPassword from "./pages/components/forgot-password/reset-password/Reset_password";
 import AdminDashboard from "./pages/admin-dashboard/AdminDashboard";
@@ -13,12 +11,22 @@ import TotalFileHistory from "./pages/utils/total_file_uploaded/totalFileHistory
 import ChartDashboard from "./pages/components/charts/ExcelChart";
 import Sidebar from "./pages/components/sidebar/sidebar";
 import { useLocation } from "react-router-dom";
+import UserProfile from "./pages/user_profile/userProfile";
+import WelcomeBack from "./pages/utils/welcome_back_card/welcomeBack";
 function App() {
-    const location = useLocation();
+  const location = useLocation();
   return (
     <>
       {/* <Header></Header> */}
-      { location.pathname === "/" || location.pathname === "/login" || location.pathname === "/register" || location.pathname === "/forgot-password" || location.pathname === "/reset-password" || location.pathname === "/admin-dashboard" ? null : <Sidebar></Sidebar>}
+      {location.pathname === "/" ||
+      location.pathname === "/login" ||
+      location.pathname === "/register" ||
+      location.pathname === "/forgot-password" ||
+      location.pathname === "/reset-password" ||
+      location.pathname === "/admin-dashboard" ||
+      location.pathname === "/welcomeBack" ? null : (
+        <Sidebar></Sidebar>
+      )}
       <Routes>
         <Route path="/" element={<Login></Login>}></Route>
         <Route path="/login" element={<Login></Login>}></Route>
@@ -48,6 +56,14 @@ function App() {
         <Route
           path="/charts"
           element={<ChartDashboard></ChartDashboard>}
+        ></Route>
+        <Route
+          path="/user_profile"
+          element={<UserProfile></UserProfile>}
+        ></Route>
+        <Route
+          path="/welcomeBack"
+          element={<WelcomeBack></WelcomeBack>}
         ></Route>
       </Routes>
       {/* <Footer></Footer> */}
