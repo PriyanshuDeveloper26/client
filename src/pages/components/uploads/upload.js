@@ -1,68 +1,63 @@
-import React, { useState } from "react";
-
+import React, { useState, useContext } from "react";
+import * as XLSX from "xlsx";
+import {
+  FaCloudUploadAlt,
+} from "react-icons/fa";
 import { motion } from "framer-motion";
-import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
-import { FaCloudUploadAlt } from 'react-icons/fa';
-import Alert from '@mui/material/Alert';
-import { FaCheck, FaExclamationTriangle } from "react-icons/fa";
-
-const UploadExcel = () => {
-  const navigate = useNavigate();
+import { Link, useNavigate } from "react-router-dom";
+import { FileContext } from "../../../contexts/FileContext";
+import Sidebar from "../sidebar/sidebar";
+const Upload = () => {
   const [file, setFile] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
-  const [responseMessage, setResponseMessage] = useState("");
+  const { setFileData } = useContext(FileContext);
+  const navigate = useNavigate();
 
   const handleFileChange = (e) => {
-    const selectedFile = e.target.files[0];
-    const allowedTypes = [
-      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-      "application/vnd.ms-excel",
-    ];
-
-    if (selectedFile && !allowedTypes.includes(selectedFile.type)) {
-      // alert("only .xls and .xlsx files are supported");
-      setResponseMessage("only .xls and .xlsx files are supported");
-      e.target.value = null;
-      return;
-    }
-    setFile(selectedFile);
+    setFile(e.target.files[0]);
   };
 
-  const handleUpload = async (e) => {
-    setIsLoading(true);
-    if (!file) {
-      // alert("Please select a file");
-      setResponseMessage("Please select a file");
-      setIsLoading(false);
-      return;
-    }
-
-    const formData = new FormData();
-    formData.append("file", file);
-
-    const res = await fetch("http://localhost:5000/file/upload", {
-      method: "POST",
-      body: formData,
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-      },
-    });
-
-    const result = await res.json();
-    setIsLoading(false);
-    alert(result.message);
-    if (result.message.includes("uploaded successfully")) {
-      setTimeout(() => navigate("/charts"), 1000);
+  const handleUpload = () => {
+    if (file) {
+      const reader = new FileReader();
+      fetch("http://localhost:5000/file/upload", {
+        method: "POST",
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+        body: file,
+      })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+      reader.onload = (e) => {
+        try{
+          const data = new Uint8Array(e.target.result);
+          const workbook =   XLSX.read(data, { type: "array" });
+          const sheetName = workbook.SheetNames[0];
+          const worksheet = workbook.Sheets[sheetName];
+          const jsonData = XLSX.utils.sheet_to_json(worksheet, { defval: "" });
+          setFileData(jsonData);
+          alert(`File "${file.name}" uploaded and processed successfully!`);
+          navigate("/charts");
+        }
+        catch(error){
+          console.log(error);
+        }        
+      };
+      reader.readAsArrayBuffer(file);
     } else {
-      navigate("/uploads");
+      alert("Please select a file to upload.");
     }
-    // setTimeout(() => {
-    //   setResponseMessage("");
-    // }, 5000);
   };
+  
   return (
     <div className="flex min-h-screen bg-gray-900 text-gray-100">
+     <Sidebar></Sidebar>
+
       <main className="flex-1 p-4 sm:ml-56">
         <section className="mb-10">
           <motion.h2
@@ -86,7 +81,7 @@ const UploadExcel = () => {
             <label htmlFor="file-upload" className="cursor-pointer block">
               <FaCloudUploadAlt className="text-5xl text-green-400 mx-auto mb-2 animate-bounce" />
               <p className="text-sm text-gray-300 font-medium">Click or drop your Excel file here</p>
-              <p className="text-xs text-gray-500">Accepted: .xlsx, .xls (Max: 5MB)</p>
+              <p className="text-xs text-gray-500">Accepted: .xlsx, .xls</p>
             </label>
             <input
               type="file"
@@ -103,26 +98,9 @@ const UploadExcel = () => {
             <button
               onClick={handleUpload}
               className="mt-4 px-6 py-2 rounded-md bg-gradient-to-r from-green-500 to-green-700 hover:from-green-600 hover:to-green-800 transition-all text-white font-semibold shadow"
-              disabled={isLoading}
             >
-              {isLoading ? "Uploading..." : "Upload & Continue"}
+              Upload & Continue
             </button>
-            {responseMessage && setTimeout(() => {
-          setResponseMessage("");
-        }, 4000) && (
-          <div
-            className="response-message"
-            align="center"
-          >
-            {(responseMessage.includes("uploaded successfully")
-              ? <Alert icon={<FaCheck />} severity="success"  style={{ marginTop: "20px", color: "green", backgroundColor: "transparent", justifyContent: "center", fontSize: "16px", fontWeight: "500" }}>
-                {responseMessage}
-              </Alert>
-              : <Alert icon={<FaExclamationTriangle />} severity="error"  style={{ marginTop: "20px", color: "red", backgroundColor: "transparent", justifyContent: "center", fontSize: "16px", fontWeight: "500" }}>
-                {responseMessage}
-              </Alert>)}
-          </div>
-        )}
           </motion.div>
         </section>
 
@@ -185,4 +163,5 @@ const UploadExcel = () => {
     </div>
   );
 };
-export default UploadExcel;
+
+export default Upload;

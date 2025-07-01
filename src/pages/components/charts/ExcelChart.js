@@ -1,241 +1,349 @@
-// ChartDashboard.js
-import React, { useEffect, useState } from "react";
-import { Bar, Pie } from "react-chartjs-2";
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title,
-  Tooltip,
-  Legend,
-  ArcElement,
-} from "chart.js";
-import { useNavigate } from "react-router-dom";
-import Alert from "@mui/material/Alert";
+// ChartGenerator.jsx (Final version with layout fixes, attractive animated boxes, and optimized layout)
 
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  ArcElement,
-  Title,
-  Tooltip,
-  Legend
-);
+import React, { useState, useEffect, useContext } from "react";
+import Plot from "react-plotly.js";
+import { Bar, Pie, Line, Radar, Doughnut, PolarArea } from "react-chartjs-2";
+import { saveAs } from "file-saver";
+import html2canvas from "html2canvas";
+import jsPDF from "jspdf";
+import Sidebar from "../sidebar/sidebar";
+import { motion } from "framer-motion";
+import { FileContext } from "../../../contexts/FileContext";
+import * as XLSX from "xlsx";
+import Chart from "chart.js/auto";
+import zoomPlugin from "chartjs-plugin-zoom";
+Chart.register(zoomPlugin);
 
-function ChartDashboard() {
-  const [fileList, setFileList] = useState([]);
-  const [selectedFileId, setSelectedFileId] = useState("");
-  const [rawData, setRawData] = useState([]);
-  const [xField, setXField] = useState("");
-  const [yField, setYField] = useState("");
+const ChartGenerator = () => {
+  const { fileData } = useContext(FileContext);
+  const [columns, setColumns] = useState([]);
+  const [xColumn, setXColumn] = useState("");
+  const [yColumn, setYColumn] = useState("");
   const [chartType, setChartType] = useState("bar");
-  const navigate = useNavigate();
-  const [chartData, setChartData] = useState(null);
+  const [colors, setColors] = useState("#4ade80");
+  const [title] = useState("Auto Generated Chart");
+  const [recentViews, setRecentViews] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:5000/file/parsedfiles")
-      .then((res) => res.json())
-      .then((data) => setFileList(data))
-      .catch((err) => console.error("Failed to fetch files", err));
-  }, []);
+    if (fileData && fileData.length > 0) {
+      const cols = Object.keys(fileData[0]);
+      setColumns(cols);
+      setXColumn(cols[0]);
+      setYColumn(cols[1] || cols[0]);
+    }
+  }, [fileData]);
 
-  const fetchFileData = async (fileId) => {
-    try {
-      const res = await fetch(
-        `http://localhost:5000/file/parsedfiles/${fileId}`
-      );
-      const data = await res.json();
-      setRawData(data);
-      if (data.length > 0) {
-        const keys = Object.keys(data[0]);
-        setXField(keys[0]);
-        setYField(keys[1]);
-      }
-    } catch (err) {
-      console.error("Error loading file data", err);
+  useEffect(() => {
+    if (title) {
+      setRecentViews((prev) => [...new Set([...prev.slice(-4), title])]);
+    }
+  }, [title]);
+
+  const chartData =
+    fileData && xColumn && yColumn
+      ? {
+          labels: fileData.map((row) => row[xColumn]),
+          datasets: [
+            {
+              label: title,
+              data: fileData.map((row) => row[yColumn]),
+              backgroundColor: fileData.map(
+                (_, i) => `hsl(${(i * 37) % 360}, 70%, 60%)`
+              ),
+              borderColor: "#1f2937",
+              borderWidth: 1,
+            },
+          ],
+        }
+      : null;
+
+  const chartOptions = {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      title: { display: true, text: title, color: "#000", font: { size: 18 } },
+      legend: { labels: { color: "#000" } },
+      zoom: {
+        pan: { enabled: true, mode: "xy" },
+        zoom: { wheel: { enabled: true }, mode: "xy" },
+      },
+    },
+    scales: {
+      x: {
+        ticks: { color: "#000" },
+        title: { display: true, text: xColumn, color: "#000" },
+      },
+      y: {
+        ticks: { color: "#000" },
+        title: { display: true, text: yColumn, color: "#000" },
+      },
+    },
+  };
+
+  const exportChart = async (format) => {
+    const chartElement = document.getElementById("chart-preview");
+    const canvas = await html2canvas(chartElement);
+    const imageData = canvas.toDataURL("image/png");
+    if (format === "pdf") {
+      const pdf = new jsPDF();
+      pdf.addImage(imageData, "PNG", 10, 10, 190, 100);
+      pdf.save("chart.pdf");
+    } else {
+      const blob = await (await fetch(imageData)).blob();
+      saveAs(blob, `chart.${format}`);
     }
   };
 
-  useEffect(() => {
-    if (rawData.length > 0 && xField && yField && chartType) {
-      const postData = {
-        data: rawData,
-        xAxis: xField,
-        yAxis: yField,
-        chartType: chartType,
-      };
+  const exportToExcel = () => {
+    const worksheet = XLSX.utils.json_to_sheet(fileData);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Sheet1");
+    XLSX.writeFile(workbook, "exported_data.xlsx");
+  };
 
-      fetch("http://localhost:5000/chart/create", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(postData),
-      })
-        .then((res) => res.json())
-        .then((processedData) => setChartData(processedData))
-        .catch((err) => console.error("Chart processing failed", err));
+  const renderChart = () => {
+    if (!chartData) return null;
+
+    if (chartType === "3d-bar") {
+      return (
+        <Plot
+          data={[
+            {
+              type: "mesh3d",
+              x: fileData.map((r) => r[xColumn]),
+              y: fileData.map((r) => r[yColumn]),
+              z: fileData.map((r) => r[yColumn]),
+              colorscale: "Viridis",
+            },
+          ]}
+          layout={{
+            title: title,
+            font: { color: "#000" },
+            legend: { font: { color: "#000" } },
+            line: { color: "#000" },
+            paper_bgcolor: "#fff",
+            plot_bgcolor: "#fff",
+            margin: { t: 30 },
+            scene: {
+              xaxis: { title: xColumn },
+              yaxis: { title: yColumn },
+              zaxis: { title: yColumn },
+            },
+          }}
+          style={{ width: "100%", height: "450px", marginTop: "10px" }}
+        />
+      );
     }
-  }, [rawData, xField, yField, chartType]);
- 
-  //temp code
-  const handleGenerateChart = () => {
-    if (selectedFileId && xField && yField && chartType) {
-      fetchFileData(selectedFileId);
+
+    if (chartType === "candlestick") {
+      return (
+        <div className="overflow-x-auto">
+          <Plot
+            data={[
+              {
+                x: fileData.map((row) => row[xColumn]),
+                close: fileData.map((row) => row[yColumn]),
+                decreasing: { line: { color: "red" } },
+                increasing: { line: { color: "green" } },
+                line: { color: "black" },
+                type: "candlestick",
+                open: fileData.map((row) => row[yColumn]),
+                high: fileData.map((row) => row[yColumn]),
+                low: fileData.map((row) => row[yColumn]),
+                name: title,
+              },
+            ]}
+            layout={{
+              title: title,
+              font: { color: "#000" },
+              legend: { font: { color: "#000" } },
+              line: { color: "#000" },
+              paper_bgcolor: "#fff",
+              plot_bgcolor: "#fff",
+            }}
+            style={{ width: "100%", height: "450px", marginTop: "10px" }}
+          />
+        </div>
+      );
+    }
+
+    const props = { data: chartData, options: chartOptions };
+    switch (chartType) {
+      case "bar":
+        return <Bar {...props} />;
+      case "line":
+        return <Line {...props} />;
+      case "pie":
+        return <Pie {...props} />;
+      case "radar":
+        return <Radar {...props} />;
+      case "doughnut":
+        return <Doughnut {...props} />;
+      case "polarArea":
+        return <PolarArea {...props} />;
+      default:
+        return <Bar {...props} />;
     }
   };
 
   return (
-    <div className="ml-64 mr-2.5 mt-2.5">
-      <h2 className="text-2xl font-bold mb-4 text-white">
-        📊 Chart Dashboard
-      </h2>
-      {fileList.length > 0 ? (
-        <div>
+    <div className="flex min-h-screen bg-gray-900 text-white">
+      <Sidebar></Sidebar>
+
+      {/* Main Content */}
+      <main className="flex-1 p-4 sm:ml-56">
+        <motion.h2
+          className="text-3xl font-bold mb-4 text-green-400"
+          initial={{ y: -10, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+        >
+          Chart Generator
+        </motion.h2>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <select
-            value={selectedFileId}
-            onChange={(e) =>
-              setSelectedFileId(e.target.value) && fetchFileData(e.target.value)
-            }
-            className="w-50 h-10 rounded border border-gray-300 mr-2.5"
+            value={xColumn}
+            onChange={(e) => setXColumn(e.target.value)}
+            className="bg-gray-800 p-2 rounded-md"
           >
-            <option value="">-- Choose File --</option>
-            {fileList.map((file) => (
-              <option key={file._id} value={file._id}>
-                {file.filename}
-              </option>
+            <option value="">X-Axis</option>
+            {columns.map((col, i) => (
+              <option key={i}>{col}</option>
+            ))}
+          </select>
+          <select
+            value={yColumn}
+            onChange={(e) => setYColumn(e.target.value)}
+            className="bg-gray-800 p-2 rounded-md"
+          >
+            <option value="">Y-Axis</option>
+            {columns.map((col, i) => (
+              <option key={i}>{col}</option>
             ))}
           </select>
           <select
             value={chartType}
             onChange={(e) => setChartType(e.target.value)}
-            className="mr-2.5 w-50 h-10 rounded border border-gray-300"
+            className="bg-gray-800 p-2 rounded-md"
           >
-            <option value="">-- Choose Chart Type --</option>
             <option value="bar">Bar</option>
-            <option value="3d">3d chart</option>
-            <option value="scatter">Scatter</option>
-            <option value="bubble">Bubble</option>
-            <option value="live">Live</option>
+            <option value="line">Line</option>
+            <option value="pie">Pie</option>
+            <option value="radar">Radar</option>
+            <option value="doughnut">Doughnut</option>
+            <option value="polarArea">Polar Area</option>
+            <option value="3d-bar">3D Bar</option>
+            <option value="candlestick">Candlestick</option>
           </select>
-          {chartType === "3d" ? (
-            <div className="flex mt-2.5">
-              <select className="w-50 h-10 rounded border border-gray-300 mr-2.5">
-                <option value="">Select X Axis</option>
-                <option value="">{xField}</option>
-              </select>
-              <select className="w-50 h-10 rounded border border-gray-300 mr-2.5">
-                <option value="">Select Y Axis</option>
-                <option value="">{yField}</option>
-              </select>
-              <select className="w-50 h-10 rounded border border-gray-300 mr-2.5">
-                <option value="">Select Z Axis</option>
-                <option value="">{xField}</option>
-              </select>
-            </div>
-          ) : (
-            <div className="flex mt-2.5">
-              <select className="w-50 h-10 rounded border border-gray-300 mr-2.5">
-                <option value="">Select X Axis</option>
-                <option value="">{xField}</option>
-              </select>
-              <select className="w-50 h-10 rounded border border-gray-300 mr-2.5">
-                <option value="">Select Y Axis</option>
-                <option value="">{yField}</option>
-              </select>
-            </div>
-          )}
-          <button
-              className="mt-2.5 bg-gray-100 shadow-md transform -translate-y-0.5 text-black text-base font-medium rounded border border-gray-300 cursor-pointer w-50 h-10 ml-2.5"
-              onClick={handleGenerateChart}
-            >
-              Generate Chart
-            </button>
         </div>
-      ) : (
-        <div>
-          <Alert
-            severity="warning"
-            className="mt-5 text-red-600 bg-transparent text-2xl font-bold"
-          >
-            Upload a file first
-          </Alert>
+
+        <div className="flex gap-4 mt-4 items-center flex-wrap">
+          <label>Color:</label>
+          <input
+            type="color"
+            value={colors}
+            onChange={(e) => setColors(e.target.value)}
+          />
           <button
-            className="mt-5 bg-gray-100 shadow-md transform -translate-y-0.5 text-black text-base font-medium rounded border border-gray-300 cursor-pointer w-50 h-10 ml-2.5"
-            onClick={() => navigate("/uploads")}
+            onClick={() => exportChart("pdf")}
+            className="bg-blue-600 px-4 py-2 rounded text-white"
           >
-            Upload File
+            Export PDF
+          </button>
+          <button
+            onClick={() => exportChart("jpg")}
+            className="bg-purple-600 px-4 py-2 rounded text-white"
+          >
+            Export JPG
+          </button>
+          <button
+            onClick={exportToExcel}
+            className="bg-yellow-600 px-4 py-2 rounded text-white"
+          >
+            Export Excel
           </button>
         </div>
-      )}
-      {rawData.length > 0 && (
-        <div className="mb-6 flex gap-4 flex-wrap">
-          <div>
-            <label className="block mb-1">X Axis:</label>
-            <select
-              className="border p-2 rounded"
-              value={xField}
-              onChange={(e) => setXField(e.target.value)}
-            >
-              {Object.keys(rawData[0]).map((key) => (
-                <option key={key} value={key}>
-                  {key}
-                </option>
-              ))}
-            </select>
-          </div>
 
-          <div>
-            <label className="block mb-1">Y Axis:</label>
-            <select
-              className="border p-2 rounded"
-              value={yField}
-              onChange={(e) => setYField(e.target.value)}
-            >
-              {Object.keys(rawData[0]).map((key) => (
-                <option key={key} value={key}>
-                  {key}
-                </option>
-              ))}
-            </select>
-          </div>
-
-          <div>
-            <label className="block mb-1">Chart Type:</label>
-            <select
-              className="border p-2 rounded"
-              value={chartType}
-              onChange={(e) => setChartType(e.target.value)}
-            >
-              <option value="bar">Bar</option>
-              <option value="pie">3d Pie</option>
-              <option value="scatter">Scatter</option>
-              <option value="bubble">Bubble</option>
-              <option value="live">Live</option>
-            </select>
-          </div>
+        <div
+          id="chart-preview"
+          className="h-[500px] mt-4 bg-white p-4 rounded-lg"
+        >
+          {renderChart()}
         </div>
-      )}
 
-      {chartData && (
-        <div className="bg-white p-4 rounded shadow">
-          {chartType === "pie" ? (
-            <Pie
-              data={chartData}
-              options={{ plugins: { legend: { position: "bottom" } } }}
-            />
-          ) : (
-            <Bar
-              data={chartData}
-              options={{ plugins: { legend: { position: "bottom" } } }}
-            />
-          )}
+        {fileData && (
+          <div className="mt-10 bg-gray-800 p-4 rounded-lg max-h-[450px] overflow-auto">
+            <h3 className="text-lg text-green-300 mb-2">📑 Data Preview</h3>
+            <div className="overflow-auto max-h-60">
+              <table className="w-full text-xs text-left">
+                <thead className="bg-gray-700">
+                  <tr>
+                    {columns.map((col, i) => (
+                      <th key={i} className="px-2 py-1">
+                        {col}
+                      </th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {fileData.slice(0, 10).map((row, i) => (
+                    <tr key={i} className="border-b border-gray-600">
+                      {columns.map((col, j) => (
+                        <td key={j} className="px-2 py-1">
+                          {row[col]}
+                        </td>
+                      ))}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        )}
+
+        <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4">
+          <motion.div
+            whileHover={{ scale: 1.05 }}
+            className="bg-gray-800 p-4 rounded-lg shadow-md"
+          >
+            <h4 className="text-md text-blue-300">📊 Recent Chart Views:</h4>
+            <ul className="list-disc list-inside text-sm text-gray-300">
+              {recentViews.map((v, i) => (
+                <li key={i}>{v}</li>
+              ))}
+            </ul>
+          </motion.div>
+
+          <motion.div
+            whileHover={{ scale: 1.05 }}
+            className="bg-gray-800 p-4 rounded-lg shadow-md"
+          >
+            <h4 className="text-md text-yellow-300">🕓 Upload History</h4>
+            <ul className="text-sm text-gray-300">
+              <li>File1.xlsx — 21 June 2025</li>
+              <li>Sales_2024.xlsx — 20 June 2025</li>
+              <li>Client_Reports.xlsx — 19 June 2025</li>
+            </ul>
+          </motion.div>
+
+          <motion.div
+            whileHover={{ scale: 1.05 }}
+            className="bg-gray-800 p-4 rounded-lg shadow-md"
+          >
+            <h4 className="text-md text-green-300">🤖 AI Chart Insights</h4>
+            <p className="text-sm text-gray-300">
+              Coming soon: Smart insights from your data using AI!
+            </p>
+          </motion.div>
         </div>
-      )}
+
+        <footer className="mt-12 py-6 text-center text-sm text-gray-500 border-t border-gray-700">
+          © {new Date().getFullYear()} InsightCraft · Empowering Insights with
+          Data
+        </footer>
+      </main>
     </div>
   );
-}
+};
 
-export default ChartDashboard;
+export default ChartGenerator;

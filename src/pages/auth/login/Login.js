@@ -69,10 +69,17 @@ const Login = () => {
   return (
     <>
       <div className="h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-gray-900 via-black to-gray-900 text-gray-100 min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 via-black to-gray-900 text-white p-4">
-        <form onSubmit={handleSubmit} className="w-full max-w-md p-10 bg-white/10 rounded-xl backdrop-blur-sm border border-white/20 shadow-lg shadow-black/30 text-black">
-          <h1 className="text-5xl font-bold font-style:italic mb-10 text-center text-green-200">Login</h1>
+        <form
+          onSubmit={handleSubmit}
+          className="w-full max-w-md p-10 bg-white/10 rounded-xl backdrop-blur-sm border border-white/20 shadow-lg shadow-black/30 text-black"
+        >
+          <h1 className="text-5xl font-bold font-style:italic mb-10 text-center text-green-200">
+            Login
+          </h1>
           <div className="mb-5">
-            <label className="block text-black font-bold mb-2 text-center text-gray-100">Name</label>
+            <label className="block text-white font-bold mb-2 text-center text-gray-100">
+              Name
+            </label>
             <input
               type="text"
               name="name"
@@ -80,11 +87,14 @@ const Login = () => {
               value={formData.name}
               onChange={handleInputChange}
               className="w-full px-4 py-3 rounded-lg bg-white/10 backdrop-blur-sm border border-white/20 focus:outline-none focus:shadow-outline hover:border-white/40"
+              required
             />
           </div>
 
           <div className="mb-5">
-            <label className="block text-black font-bold mb-2 text-center text-gray-100">Password</label>
+            <label className="block text-white font-bold mb-2 text-center text-gray-100">
+              Password
+            </label>
             <input
               type={showPassword ? "text" : "password"}
               name="password"
@@ -92,6 +102,7 @@ const Login = () => {
               value={formData.password}
               onChange={handleInputChange}
               className="w-full px-4 py-3 rounded-lg bg-white/10 backdrop-blur-sm border border-white/20 focus:outline-none focus:shadow-outline hover:border-white/40"
+              required
             />
             <div className="flex justify-between items-center mt-2 mb-4 text-sm text-black">
               <div className="flex items-center gap-2">

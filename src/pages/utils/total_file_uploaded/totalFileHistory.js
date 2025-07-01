@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from "react";
 // import { useNavigate } from "react-router-dom";
 
-import { TableBody, TableCell, TableHead, TableRow, TableContainer } from "@mui/material";
-import axios from 'axios';
-
+// import axios from 'axios';
+// import { List, ListItem, ListItemText, Button } from "@mui/material";
+// import Footer from "../../components/footer/Footer";
+import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 const TotalFileHistory = () => {
+  // const [limit, setLimit] = useState(2);
   const [files, setFiles] = useState([]);
+  const columns = ["File Name", "File Type", "File Size", "File Date"];
 
   useEffect(() => {
     fetch("http://localhost:5000/file/recentfiles")
@@ -16,58 +20,72 @@ const TotalFileHistory = () => {
 
   // const navigate = useNavigate();
 
-  const handleDelete = async (id) => {
-    try {
-      await axios.delete(`http://localhost:5000/file/delete/${id}`);
-      // Refresh the files list after deletion
-      const updatedFiles = files.filter(file => file._id !== id);
-      setFiles(updatedFiles);
-    } catch (error) {
-      console.error('Error deleting file:', error);
-    }
-  };
-
   return (
-    <div className="text-center space-y-4">
-      <div className="flex items-center justify-center p-4">
-        <div className="font-bold text-white text-2xl font-times-new-roman">Total Files</div>
-        {/* <button className="upload-btn" onClick={() => navigate("/uploads")}>
-          {" "}
-          + Upload
-        </button> */}
+    <div className="ml-[240px] mr-[15px] mt-[15px] text-center space-y-4">
+      <motion.h2
+        className="text-3xl font-bold mb-4 text-green-400"
+        initial={{ opacity: 0, y: -10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+      >
+        View Total Files
+      </motion.h2>
+      <div className="overflow-auto !p-5 max-h-100">
+        <table
+          className="w-[80%] text-left bg-white/10 backdrop-blur-sm shadow-sm p-5"
+          align="center"
+        >
+          <thead className="bg-green-700">
+            <tr>
+              {columns.map((col, i) => (
+                <th key={i} className="px-2 py-1 text-lg text-white">
+                  {col}
+                </th> 
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {files.slice(0, 10).map((row, i) => (
+              <tr
+                key={i}
+                className="border-b border-gray-600 hover:bg-gray-900 transition-all duration-300"
+              >
+                <td>
+                  <span className="text-white ml-2">{row.fileName}</span>
+                </td>
+                <td>
+                  <span className="text-white ml-2">
+                    {row.fileType.includes("spreadsheetml.sheet")
+                      ? "xlsx"
+                      : row.fileType.includes("ms-excel")
+                      ? "xls"
+                      : "other"}
+                  </span>
+                </td>
+                <td>
+                  <span className="text-white ml-2">
+                    {row.size / 1024 / 1024 > 1
+                      ? (row.size / 1024 / 1024).toFixed(2) + " MB"
+                      // : row.size / 1024 > 1
+                      : (row.size / 1024).toFixed(2) + " KB"}
+                       {/* : row.size.toFixed(2) + " B"} */}
+                  </span>
+                </td>
+                <td>
+                  <span className="text-white ml-2">{(row.uploadDate).toLocaleString().split("T")[0] || "N/A"}</span>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
-      <TableContainer className="w-fit font-sans text-base bg-[#111827] rounded-lg shadow-sm p-5">
-        <TableHead>
-          <TableRow>
-            <TableCell align="left" className="text-white font-bold">Sr No.</TableCell>
-            <TableCell align="left" className="text-white font-bold">File Name</TableCell>
-            <TableCell align="left" className="text-white font-bold">File Type</TableCell>
-            <TableCell align="left" className="text-white font-bold">File Size</TableCell>
-            <TableCell align="left" className="text-white font-bold">File Date</TableCell>
-            <TableCell align="left" className="text-white font-bold">File Action</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {files.map((file, index) => (
-            <TableRow key={file._id}>
-              <TableCell align="left" className="text-white">{index + 1}</TableCell>
-              <TableCell align="left" className="text-white">{file.fileName}</TableCell>
-              <TableCell align="left" className="text-white">
-                {file.fileType.includes("spreadsheetml.sheet")
-                  ? "xlsx"
-                  : file.fileType.includes("ms-excel")
-                  ? "Xls"
-                  : "other"}
-              </TableCell>
-              <TableCell align="left" className="text-white">{(file.size / 1024).toFixed(2)} MB</TableCell>
-              <TableCell align="left" className="text-white">{new Date(file.uploadDate).toLocaleString()}</TableCell>
-              <TableCell align="left" className="text-white">
-                <button className="bg-transparent text-white hover:text-white hover:font-bold hover:underline px-4 py-2 transition-all duration-200" onClick={() => handleDelete(file._id)}>Delete</button>
-              </TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </TableContainer>
+      {/* Footer */}
+      <footer className="fixed bottom-0 left-0 right-0 ml-[240px] mr-[15px] text-center py-6 text-sm text-gray-500 border-t border-gray-700 mt-10">
+          © {new Date().getFullYear()} Excel Analytics Platform · Uploads made smarter ·{" "}
+          <Link to="/dashboard" className="text-green-400 hover:underline">
+            Back to Dashboard
+          </Link>
+        </footer>
     </div>
   );
 };
