@@ -1,7 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { Skeleton } from "@mui/material";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -136,16 +135,7 @@ const Login = () => {
             className="w-full py-3 rounded-lg bg-green-900 text-white font-bold hover:bg-green-900 hover:shadow-lg hover:shadow-white/10 transform hover:-translate-y-0.5 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
             disabled={isLoading}
           >
-            {isLoading ? (
-              <Skeleton
-                variant="rectangular"
-                color="cyan"
-                className="w-full h-10"
-                animation="wave"
-              />
-            ) : (
-              "Login"
-            )}
+            {isLoading ? "Loading..." : "Login"}
           </button>
           <p className="mt-6 text-center text-sm text-gray-100">
             Don't have an account?{" "}

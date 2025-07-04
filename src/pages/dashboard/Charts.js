@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 const Charts = () => {
   const commonOptions = {
     chart: {
-      height: 300,
+      height: 250,
       width: "100%",
       toolbar: {
         show: false,
@@ -120,25 +120,56 @@ const Charts = () => {
   ];
 
   return (
-    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-2 gap-6">
-      {chartsData.map((chart, index) => (
-        <div key={index} className="bg-[#1e293b] rounded-lg p-4">
-          <motion.h3
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="text-xl font-semibold text-white mb-4"
+    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6">
+      {chartsData.map((chart, index) =>
+        index === 0 ? (
+          <motion.div
+            key={index}
+            className="bg-[#1e293b] rounded-lg p-4 col-span-2"
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, delay: index * 0.15 }}
           >
-            {chart.title}
-          </motion.h3>
-          <ReactApexChart
-            options={chart.options}
-            series={chart.series}
-            type={chart.type}
-            height={300}
-          />
-        </div>
-      ))}
+            <motion.h3
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              className="text-xl font-semibold text-blue-200 mb-4"
+            >
+              {chart.title}
+            </motion.h3>
+            <ReactApexChart
+              options={chart.options}
+              series={chart.series}
+              type={chart.type}
+              height={250}
+            />
+          </motion.div>
+        ) : (
+          <motion.div
+            key={index}
+            className="bg-[#1e293b] rounded-lg p-4"
+            initial={{ opacity: 0, y: -10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, delay: index * 0.15 }}
+          >
+            <motion.h3
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              className="text-xl font-semibold text-blue-200 mb-4"
+            >
+              {chart.title}
+            </motion.h3>
+            <ReactApexChart
+              options={chart.options}
+              series={chart.series}
+              type={chart.type}
+              height={200}
+            />
+          </motion.div>
+        )
+      )}
     </div>
   );
 };

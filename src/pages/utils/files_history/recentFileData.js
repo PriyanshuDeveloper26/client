@@ -1,11 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-import {
-  List,
-  ListItem,
-  ListItemText,
-  Button,
-} from "@mui/material";
+import { List, ListItem, ListItemText, Button } from "@mui/material";
 import { motion } from "framer-motion";
 
 const RecentFileData = () => {
@@ -40,11 +35,37 @@ const RecentFileData = () => {
       >
         Recent Files
       </motion.h2>
-      <List className="w-[50%] max-h-[300px] border border-white/20 font-sans text-base bg-white/10 backdrop-blur-sm border border-white/20 hover:border-white/40  rounded-lg shadow-sm p-5">
-        {files.slice(0, limit).map((file, index) => (
-          <ListItem key={file._id} className="flex items-center justify-between">
-            <ListItemText primary={file.fileName + "." + (file.fileType.includes("spreadsheetml.sheet") ? "xlsx" : file.fileType.includes("ms-excel") ? "Xls" : "other")} />
-            <Button
+      <motion.div
+        initial={{ opacity: 0, y: -10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+      >
+        <List className="w-full max-h-[300px] border border-white/20 font-sans text-base bg-[#1e293b] backdrop-blur-sm border border-white/20 hover:border-white/40  rounded-lg shadow-sm p-5">
+          {files.slice(0, limit).map((file, index) => (
+            <ListItem
+              key={file._id}
+              className="flex items-center justify-between"
+            >
+              <ListItemText
+                primary={
+                  file.fileName +
+                  "." +
+                  (file.fileType.includes("spreadsheetml.sheet")
+                    ? "xlsx"
+                    : file.fileType.includes("ms-excel")
+                    ? "Xls"
+                    : "other") +
+                  " - " +
+                  file.uploadDate.toLocaleString().split("T")[0] +
+                  " - " + 
+                  localStorage.getItem("name") +
+                  " - " +
+                  (file.size / 1024 / 1024 > 1
+                    ? (file.size / 1024 / 1024).toFixed(2) + " MB"
+                    : (file.size / 1024).toFixed(2) + " KB")
+                }
+              />
+              <Button
                 variant="outlined"
                 color="error"
                 onClick={() => handleDelete(file._id)}
@@ -52,9 +73,10 @@ const RecentFileData = () => {
               >
                 Delete
               </Button>
-          </ListItem>
-        ))}
-      </List>
+            </ListItem>
+          ))}
+        </List>
+      </motion.div>
       {files.length === 0 && (
         <p className="text-sm text-gray-100">No recent files found</p>
       )}

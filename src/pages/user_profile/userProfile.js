@@ -23,19 +23,26 @@
 
 
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const UserProfile = () => {
-  const [username, setUsername] = useState("john_doe");
+  const navigate = useNavigate();
+  const [username, setUsername] = useState(localStorage.getItem("name") || "");
   const [newUsername, setNewUsername] = useState("");
   const [password] = useState("********"); // masked for display only
+  const [responsemessage, setResponseMessage] = useState("");
 
   const handleUsernameChange = () => {
     if (newUsername.trim()) {
       setUsername(newUsername);
       setNewUsername("");
-      alert("Username updated!");
+      localStorage.setItem("name", newUsername);
+      setResponseMessage("✅ Username changed successfully!");
+      setTimeout(() => navigate("/dashboard"), 2000);
     }
   };
+
+
 
   return (
     <div className="ml-[240px] mr-4 mt-4 min-h-screen flex items-center justify-center px-4">
@@ -70,6 +77,10 @@ const UserProfile = () => {
           >
             Update Username
           </button>
+          {responsemessage && (
+            <p className="text-sm text-green-400 mt-2 text-center">{responsemessage}</p>
+          )
+          }
         </div>
       </div>
     </div>

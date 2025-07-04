@@ -99,7 +99,7 @@ const Sidebar = () => {
           </div>
         </div>
       ) : (
-        <div className="hidden sm:flex fixed top-0 left-0 h-full w-56 bg-gray-900 text-white shadow-lg z-50 flex-col justify-between py-6">
+        <div className="hidden sm:flex fixed top-0 left-0 h-full w-56 bg-gray-900 text-white z-50 flex-col justify-between py-6">
           <div>
             <h1 className="text-center text-[18px] font-bold mb-6 text-green-400">
               Excel Analytics Platform

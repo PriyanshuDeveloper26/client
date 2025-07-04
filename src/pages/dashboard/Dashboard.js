@@ -4,17 +4,42 @@ import RecentFileData from "../utils/files_history/recentFileData";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import Charts from "./Charts";
+import WelcomeBanner from "../../assets/images/welcome gif.gif";
 const Dashboard = () => {
   const navigate = useNavigate();
+
+  const currentTime = new Date();
+  const currentHour = currentTime.getHours();
+  let greeting;
+  if (currentHour < 12) {
+    greeting = "Good Morning 🌻";
+  } else if (currentHour < 18) {
+    greeting = "Good Afternoon 🌞";
+  } else {
+    greeting = "Good Evening 🌃";
+  }
 
   return (
     <div className="min-h-screen text-gray-100">
       <div className="ml-[260px] mr-4 mt-4">
-        <div>
-          <h1 className="text-5xl font-bold font-style:italic mb-10 text-center text-green-200">
-            Dashboard
-          </h1>
-        </div>
+        <motion.nav
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="flex justify-between rounded-lg bg-[#1e293b] mb-4"
+        >
+          <p className="text-lg ml-4 mt-2 mb-2 font-bold text-[#f5deb3]">{greeting}</p>
+          <div className="flex space-x-4 mt-2 mb-2 mr-4">
+            <p className="text-[#f5deb3] text-lg font-semibold cursor-pointer hover:text-green-400" onClick={() => navigate("/user_profile")}>Welcome 👋, {localStorage.getItem("name")}</p>
+          </div>
+        </motion.nav>
+        <motion.div
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          <img src={WelcomeBanner} alt="Welcome Banner" className="w-full mb-10 rounded-lg" />
+        </motion.div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-10">
           <motion.div
             initial={{ y: -20, opacity: 0 }}
@@ -70,10 +95,8 @@ const Dashboard = () => {
               Sample Charts
             </motion.h2>
             <Charts />
+            <RecentFileData />
           </div>
-        </div>
-        <div className="mb-10">
-          <RecentFileData />
         </div>
         <Footer />
       </div>
